@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32929.386
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteJiraBlazor", "ClienteJiraBlazor.csproj", "{D415A473-7674-43AD-9B38-DC70F7F92714}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClienteJiraBlazor", "ClienteJiraBlazor.csproj", "{D415A473-7674-43AD-9B38-DC70F7F92714}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Negocio", "..\Negocio\Negocio.csproj", "{C3155F44-804B-4826-B142-585379CC4D07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteJiraAPI", "..\ClienteJiraAPI\ClienteJiraAPI.csproj", "{EA15A9E1-48FA-472D-9C46-4C41E96D9A55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositorio", "..\Repositorio\Repositorio.csproj", "{A8E1AA91-DA5B-4716-BFC7-4523DF335061}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{D415A473-7674-43AD-9B38-DC70F7F92714}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D415A473-7674-43AD-9B38-DC70F7F92714}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D415A473-7674-43AD-9B38-DC70F7F92714}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3155F44-804B-4826-B142-585379CC4D07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3155F44-804B-4826-B142-585379CC4D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3155F44-804B-4826-B142-585379CC4D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3155F44-804B-4826-B142-585379CC4D07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA15A9E1-48FA-472D-9C46-4C41E96D9A55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA15A9E1-48FA-472D-9C46-4C41E96D9A55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA15A9E1-48FA-472D-9C46-4C41E96D9A55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA15A9E1-48FA-472D-9C46-4C41E96D9A55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8E1AA91-DA5B-4716-BFC7-4523DF335061}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8E1AA91-DA5B-4716-BFC7-4523DF335061}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8E1AA91-DA5B-4716-BFC7-4523DF335061}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8E1AA91-DA5B-4716-BFC7-4523DF335061}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
