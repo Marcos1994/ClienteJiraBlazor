@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Cliente\" />
-    <Folder Include="Modelos\Entrada\" />
     <Folder Include="Modelos\Saida\" />
   </ItemGroup>
 
