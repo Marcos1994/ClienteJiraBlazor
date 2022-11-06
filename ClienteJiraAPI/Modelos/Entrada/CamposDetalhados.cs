@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ClienteJiraAPI.Modelos.Entrada
 {
-	public class CamposDetalhados
+	public class CamposDetalhados : Campos
 	{
 		public int aggregateTimeOriginalEstimate { get; set; }
 		public int aggregateTimeEstimate { get; set; }

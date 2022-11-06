@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ClienteJiraAPI.Modelos.Entrada
 {
-	public class CamposEpico
+	public class CamposEpico : CamposDetalhados
 	{
 		/// <summary>
 		/// Epic Name

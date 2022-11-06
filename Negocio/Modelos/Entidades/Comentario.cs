@@ -9,13 +9,15 @@ namespace Negocio.Modelos.Entidades
 
 		}
 
-		public Comentario(Usuario autor, string conteudo, DateTime dataCriacao)
+		public Comentario(int id, Usuario autor, string conteudo, DateTime dataCriacao)
 		{
+			Id = id;
 			Autor = autor;
 			Conteudo = conteudo;
 			DataCriacao = dataCriacao;
 		}
 
+		public int Id { get; private set; }
 		public Usuario Autor { get; private set; }
 		public string Conteudo { get; private set; }
 		public DateTime DataCriacao { get; private set; }
