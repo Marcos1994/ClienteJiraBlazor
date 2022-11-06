@@ -11,4 +11,8 @@
     <Folder Include="Modelos\Saida\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+  </ItemGroup>
+
 </Project>

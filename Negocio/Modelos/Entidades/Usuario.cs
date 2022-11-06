@@ -23,6 +23,16 @@ namespace Negocio.Modelos.Entidades
 			Tarefas = new List<Tarefa>();
 		}
 
+		public Usuario(int id, string email, string urlAvatar, string nome, bool ativo)
+			: this()
+		{
+			Id = id;
+			Email = email;
+			UrlAvatar = urlAvatar;
+			Nome = nome;
+			Ativo = ativo;
+		}
+
 		public double RemuneracaoAtual()
 		{
 			Remuneracao r = HistoricoRemuneracao.FirstOrDefault(r => r.Final == null);
