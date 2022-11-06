@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="Servico\" />
     <Folder Include="Modelos\Entrada\" />
-    <Folder Include="Modelos\Entidades\" />
     <Folder Include="Modelos\Profiles\" />
     <Folder Include="Modelos\Saida\" />
   </ItemGroup>
