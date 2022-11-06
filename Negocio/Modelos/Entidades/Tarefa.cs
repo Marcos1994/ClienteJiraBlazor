@@ -10,11 +10,11 @@ namespace Negocio.Modelos.Entidades
 		public Epico Epico { get; private set; }
 		public Etapa Etapa { get; private set; }
 		public int MyProperty { get; private set; }
-		public List<Subtarefa> Subtarefas { get; private set; }
-		public List<Relacionamento> Relacionamentos { get; private set; }
+		public List<Subtarefa> Subtarefas { get; private set; } = new List<Subtarefa>();
+		public List<Relacionamento> Relacionamentos { get; private set; } = new List<Relacionamento>();
 		public EnumTarefa TipoTarefa { get; private set; }
-		public List<Agendamento> Agendamentos { get; private set; }
+		public List<Agendamento> Agendamentos { get; private set; } = new List<Agendamento>();
 		public Sprint Sprint { get; private set; }
-		public List<Apontamento> Apontamentos { get; private set; }
+		public List<Apontamento> Apontamentos { get; private set; } = new List<Apontamento>();
 	}
 }

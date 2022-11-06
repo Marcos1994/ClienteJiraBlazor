@@ -12,9 +12,9 @@ namespace Negocio.Modelos.Entidades
 		public string UrlAvatar { get; private set; }
 		public string Nome { get; private set; }
 		public bool Ativo { get; private set; }
-		public List<Remuneracao> HistoricoRemuneracao { get; private set; }
-		public List<Epico> Epicos { get; private set; }
-		public List<Tarefa> Tarefas { get; private set; }
+		public List<Remuneracao> HistoricoRemuneracao { get; private set; } = new List<Remuneracao>();
+		public List<Epico> Epicos { get; private set; } = new List<Epico>();
+		public List<Tarefa> Tarefas { get; private set; } = new List<Tarefa>();
 
 		public Usuario()
 		{

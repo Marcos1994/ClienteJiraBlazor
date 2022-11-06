@@ -17,8 +17,8 @@ namespace Negocio.Modelos.Entidades
 		public DateTime DataLimite { get; protected set; }
 		public string Descricao { get; protected set; }
 		public Projeto Projeto { get; protected set; }
-		public List<string> Rotulos { get; protected set; }
-		public List<Anexo> Anexos { get; protected set; }
-		public List<Comentario> Comentarios { get; protected set; }
+		public List<string> Rotulos { get; protected set; } = new List<string>();
+		public List<Anexo> Anexos { get; protected set; } = new List<Anexo>();
+		public List<Comentario> Comentarios { get; protected set; } = new List<Comentario>();
 	}
 }
