@@ -6,6 +6,20 @@ namespace Negocio.Modelos.Entidades
 {
 	public class Sprint
 	{
+		public Sprint()
+		{
+
+		}
+
+		public Sprint(int id, string nome, DateTime inicio, DateTime fim, EnumSprint estado)
+		{
+			Id = id;
+			Nome = nome;
+			Inicio = inicio;
+			Fim = fim;
+			Estado = estado;
+		}
+
 		public int Id { get; private set; }
 		public string Nome { get; private set; }
 		public DateTime Inicio { get; private set; }

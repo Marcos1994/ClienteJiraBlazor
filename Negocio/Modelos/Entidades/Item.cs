@@ -7,6 +7,25 @@ namespace Negocio.Modelos.Entidades
 {
 	public abstract class Item
 	{
+		public Item()
+		{
+
+		}
+
+		protected Item(int id, string chave, string nome, EnumStatus status, Usuario reportado, Usuario atribuido, DateTime dataInicio, DateTime dataLimite, string descricao, Projeto projeto)
+		{
+			Id = id;
+			Chave = chave;
+			Nome = nome;
+			Status = status;
+			Reportado = reportado;
+			Atribuido = atribuido;
+			DataInicio = dataInicio;
+			DataLimite = dataLimite;
+			Descricao = descricao;
+			Projeto = projeto;
+		}
+
 		public int Id { get; protected set; }
 		public string Chave { get; protected set; }
 		public string Nome { get; protected set; }

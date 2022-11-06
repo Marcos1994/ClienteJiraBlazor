@@ -7,6 +7,20 @@ namespace Negocio.Modelos.Entidades
 {
 	public class Usuario
 	{
+		public Usuario()
+		{
+
+		}
+
+		public Usuario(int id, string email, string urlAvatar, string nome, bool ativo)
+		{
+			Id = id;
+			Email = email;
+			UrlAvatar = urlAvatar;
+			Nome = nome;
+			Ativo = ativo;
+		}
+
 		public int Id { get; private set; }
 		public string Email { get; private set; }
 		public string UrlAvatar { get; private set; }
@@ -15,23 +29,6 @@ namespace Negocio.Modelos.Entidades
 		public List<Remuneracao> HistoricoRemuneracao { get; private set; } = new List<Remuneracao>();
 		public List<Epico> Epicos { get; private set; } = new List<Epico>();
 		public List<Tarefa> Tarefas { get; private set; } = new List<Tarefa>();
-
-		public Usuario()
-		{
-			HistoricoRemuneracao = new List<Remuneracao>();
-			Epicos = new List<Epico>();
-			Tarefas = new List<Tarefa>();
-		}
-
-		public Usuario(int id, string email, string urlAvatar, string nome, bool ativo)
-			: this()
-		{
-			Id = id;
-			Email = email;
-			UrlAvatar = urlAvatar;
-			Nome = nome;
-			Ativo = ativo;
-		}
 
 		public double RemuneracaoAtual()
 		{
