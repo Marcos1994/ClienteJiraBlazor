@@ -6,9 +6,9 @@ namespace ClienteJiraAPI.Modelos.Entrada
 {
 	public class CamposDetalhados : Campos
 	{
-		public int aggregateTimeOriginalEstimate { get; set; }
-		public int aggregateTimeEstimate { get; set; }
-		public int aggregateTimespent { get; set; }
+		public int? aggregateTimeOriginalEstimate { get; set; }
+		public int? aggregateTimeEstimate { get; set; }
+		public int? aggregateTimespent { get; set; }
 		/// <summary>
 		/// Start Date
 		/// </summary>

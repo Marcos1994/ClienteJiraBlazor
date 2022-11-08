@@ -4,13 +4,13 @@ using System.Text;
 
 namespace ClienteJiraAPI.Modelos.Entrada
 {
-	public class CamposTarefa
+	public class CamposTarefa : CamposDetalhados
 	{
-		public Item parent { get; set; }
-		public int timeEstimate { get; set; }
+		public ItemBase parent { get; set; }
+		public int? timeEstimate { get; set; }
 		public List<ItemRelacionado> issueLinks { get; set; }
 		public string customfield_10600 { get; set; }
-		public int timeSpent { get; set; }
+		public int? timeSpent { get; set; }
 		/// <summary>
 		/// Sprints
 		/// </summary>

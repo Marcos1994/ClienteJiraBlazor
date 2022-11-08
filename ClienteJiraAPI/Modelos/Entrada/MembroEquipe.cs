@@ -11,7 +11,7 @@ namespace ClienteJiraAPI.Modelos.Entrada
 			avatarUrls = new Dictionary<string, string>();
 		}
 
-		public int accountId { get; set; }
+		public string accountId { get; set; }
 		public string emailAddress { get; set; }
 		public Dictionary<string,string> avatarUrls { get; set; }
 		public string displayName { get; set; }

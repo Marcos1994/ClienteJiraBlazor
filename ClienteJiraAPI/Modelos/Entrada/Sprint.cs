@@ -6,7 +6,7 @@ namespace ClienteJiraAPI.Modelos.Entrada
 {
 	public class Sprint
 	{
-		public string id { get; set; }
+		public int id { get; set; }
 		public string name { get; set; }
 		public string state { get; set; }
 		public int boardId { get; set; }

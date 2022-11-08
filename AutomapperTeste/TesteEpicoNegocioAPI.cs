@@ -32,7 +32,7 @@ namespace AutomapperTeste
 		public void JsonItemParaEpico()
 		{
 			#region Instanciacao do epico de origem
-			ClienteJiraAPI.Modelos.Entrada.Item origem = new ClienteJiraAPI.Modelos.Entrada.Item()
+			ClienteJiraAPI.Modelos.Entrada.ItemEpico origem = new ClienteJiraAPI.Modelos.Entrada.ItemEpico()
 			{
 				id = "60627",
 				key = "NUAGIL-644",

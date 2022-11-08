@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClienteJiraAPI", "..\Client
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositorio", "..\Repositorio\Repositorio.csproj", "{A8E1AA91-DA5B-4716-BFC7-4523DF335061}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomapperTeste", "..\AutomapperTeste\AutomapperTeste.csproj", "{58562580-F6D8-4B5A-8048-BAB7E740DE96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomapperTeste", "..\AutomapperTeste\AutomapperTeste.csproj", "{58562580-F6D8-4B5A-8048-BAB7E740DE96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesteConsole", "..\TesteConsole\TesteConsole.csproj", "{71A82EC3-CB76-4EFA-B71E-151C70F23141}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{58562580-F6D8-4B5A-8048-BAB7E740DE96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58562580-F6D8-4B5A-8048-BAB7E740DE96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58562580-F6D8-4B5A-8048-BAB7E740DE96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71A82EC3-CB76-4EFA-B71E-151C70F23141}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71A82EC3-CB76-4EFA-B71E-151C70F23141}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71A82EC3-CB76-4EFA-B71E-151C70F23141}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71A82EC3-CB76-4EFA-B71E-151C70F23141}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,7 +9,7 @@ namespace ClienteJiraAPI.Modelos.Entrada
 		public string id { get; set; }
 		public string self { get; set; }
 		public TipoRelacionamento type { get; set; }
-		public Item inwardIssue { get; set; }
-		public Item outwardIssue { get; set; }
+		public ItemBase inwardIssue { get; set; }
+		public ItemBase outwardIssue { get; set; }
 	}
 }

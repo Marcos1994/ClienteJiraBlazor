@@ -4,11 +4,10 @@ using System.Text;
 
 namespace ClienteJiraAPI.Modelos.Entrada
 {
-	public class Item
+	public abstract class Item
 	{
 		public string id { get; set; }
 		public string self { get; set; }
 		public string key { get; set; }
-		public Campos fields { get; set; }
 	}
 }
