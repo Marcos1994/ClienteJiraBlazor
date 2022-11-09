@@ -5,6 +5,7 @@ using System.Text;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using ClienteJiraAPI.Modelos.Entrada;
+using System.IO;
 
 namespace ClienteJiraAPI.Cliente
 {
@@ -12,7 +13,20 @@ namespace ClienteJiraAPI.Cliente
 	{
 		public EpicoApiService()
         {
+            if (!File.Exists("token.txt"))
+            {
+                using (var writer = new StreamWriter("token.txt"))
+                {
+                    writer.WriteLine("USUARIO");
+                    writer.WriteLine("TOKEN");
+                }
+            }
 
+            using (StreamReader reader = new StreamReader("token.txt"))
+            {
+                Usuario = reader.ReadLine();
+                Token = reader.ReadLine();
+            }
         }
 
 		public EpicoApiService(string usuario, string token)
