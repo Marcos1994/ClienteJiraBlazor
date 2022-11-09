@@ -10,7 +10,7 @@ namespace TesteConsole
 		static async Task Main(string[] args)
 		{
 			Console.WriteLine("Hello World!");
-			EpicoApiService service = new EpicoApiService();
+			IssueApiService service = new IssueApiService();
 			ItemTarefa item = await service.GetJiraIssueAsync<ItemTarefa>("NUMVALESA-2727");
 			Console.WriteLine("Hello World!");
 		}

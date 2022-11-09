@@ -36,7 +36,7 @@ namespace AutomapperTeste
 				created = "2022-10-04T20:06:51.613-0300",
 				author = new ClienteJiraAPI.Modelos.Entrada.MembroEquipe()
 				{
-					accountId = 7,
+					accountId = "7",
 					displayName = "Marcos André",
 					emailAddress = "marcos.antas@hotmail.com.br",
 					active = true,
@@ -68,7 +68,7 @@ namespace AutomapperTeste
 				created = "2022-10-04T20:06:51.613-0300",
 				author = new ClienteJiraAPI.Modelos.Entrada.MembroEquipe()
 				{
-					accountId = 7,
+					accountId = "7",
 					displayName = "Marcos André",
 					emailAddress = "marcos.antas@hotmail.com.br",
 					active = true,
@@ -87,7 +87,7 @@ namespace AutomapperTeste
 				created = "2022-10-04T20:06:51.615-0300",
 				author = new ClienteJiraAPI.Modelos.Entrada.MembroEquipe()
 				{
-					accountId = 8,
+					accountId = "8",
 					displayName = "Gustavo Ristow",
 					emailAddress = "gustavo.ristow@interfusaoti.com.br",
 					active = true,

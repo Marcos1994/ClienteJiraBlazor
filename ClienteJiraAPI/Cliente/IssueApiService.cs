@@ -9,9 +9,9 @@ using System.IO;
 
 namespace ClienteJiraAPI.Cliente
 {
-	public class EpicoApiService
+	public class IssueApiService
 	{
-		public EpicoApiService()
+		public IssueApiService()
         {
             if (!File.Exists("token.txt"))
             {
@@ -29,7 +29,7 @@ namespace ClienteJiraAPI.Cliente
             }
         }
 
-		public EpicoApiService(string usuario, string token)
+		public IssueApiService(string usuario, string token)
 		{
 			Usuario = usuario;
 			Token = token;

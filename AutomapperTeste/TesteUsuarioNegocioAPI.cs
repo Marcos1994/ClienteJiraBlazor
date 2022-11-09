@@ -30,7 +30,7 @@ namespace AutomapperTeste
 		{
 			MembroEquipe origem = new MembroEquipe()
 			{
-				accountId = 7,
+				accountId = "7",
 				displayName = "Marcos André",
 				emailAddress = "marcos.antas@hotmail.com.br",
 				active = true,
@@ -42,7 +42,7 @@ namespace AutomapperTeste
 
 			Usuario destino = mapper.Map<Usuario>(origem);
 
-			destino.Id.Should().Be(origem.accountId);
+			destino.Id.ToString().Should().Be(origem.accountId);
 			destino.Ativo.Should().Be(origem.active);
 			destino.Email.Should().Be(origem.emailAddress);
 			destino.Nome.Should().Be(origem.displayName);
@@ -53,7 +53,7 @@ namespace AutomapperTeste
 		{
 			MembroEquipe origem = new MembroEquipe()
 			{
-				accountId = 7,
+				accountId = "7",
 				displayName = "Marcos André",
 				emailAddress = "marcos.antas@hotmail.com.br",
 				active = true,
@@ -62,7 +62,7 @@ namespace AutomapperTeste
 
 			Usuario destino = mapper.Map<Usuario>(origem);
 
-			destino.Id.Should().Be(origem.accountId);
+			destino.Id.ToString().Should().Be(origem.accountId);
 			destino.Ativo.Should().Be(origem.active);
 			destino.Email.Should().Be(origem.emailAddress);
 			destino.Nome.Should().Be(origem.displayName);
