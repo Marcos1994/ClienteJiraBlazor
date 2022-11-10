@@ -44,5 +44,26 @@ namespace AutomapperTeste
 			destino.TipoArquivo.Should().Be(EnumTipoArquivo.Pdf);
 			destino.DataCriacao.Should().Be(new DateTime(2022, 10, 4, 20, 6, 51, 613));
 		}
+
+		[Fact]
+		public void JsonAnexoSemDataParaAnexo()
+		{
+			ClienteJiraAPI.Modelos.Entrada.Anexo origem = new ClienteJiraAPI.Modelos.Entrada.Anexo()
+			{
+				id = "7",
+				content = "Arquivo PDF",
+				fileName = "Arquivo.pdf",
+				mimeType = "application/pdf",
+				created = null
+			};
+
+			Negocio.Modelos.Entidades.Anexo destino = mapper.Map<Negocio.Modelos.Entidades.Anexo>(origem);
+
+			destino.Id.ToString().Should().Be(origem.id);
+			destino.Conteudo.Should().Be(origem.content);
+			destino.Nome.Should().Be(origem.fileName);
+			destino.TipoArquivo.Should().Be(EnumTipoArquivo.Pdf);
+			destino.DataCriacao.Should().Be(null);
+		}
 	}
 }

@@ -16,8 +16,11 @@ namespace Repositorio.Profiles
 				.ForMember(d => d.Chave, opt => opt.MapFrom(o => o.key))
 				.ForMember(d => d.Nome, opt => opt.MapFrom(o => o.name))
 				.ForMember(d => d.Tipo, opt => opt.MapFrom(o => o.projectTypeKey))
-				.ForMember(d => d.Foto, opt => opt.MapFrom(o => o.avatarUrls.Count > 0
-					? o.avatarUrls[o.avatarUrls.Keys.ToList().First()] : string.Empty))
+				.ForMember(d => d.Foto, opt =>
+				{
+					opt.PreCondition(o => o.avatarUrls.Count > 0);
+					opt.MapFrom(o => o.avatarUrls[o.avatarUrls.Keys.ToList().First()]);
+				})
 				.ForMember(d => d.Categoria, opt => opt.MapFrom(o => o.projectCategory.name));
 		}
 	}

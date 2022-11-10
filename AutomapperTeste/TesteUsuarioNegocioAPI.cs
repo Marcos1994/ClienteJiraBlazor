@@ -42,7 +42,7 @@ namespace AutomapperTeste
 
 			Usuario destino = mapper.Map<Usuario>(origem);
 
-			destino.Id.ToString().Should().Be(origem.accountId);
+			destino.AccountId.Should().Be(origem.accountId);
 			destino.Ativo.Should().Be(origem.active);
 			destino.Email.Should().Be(origem.emailAddress);
 			destino.Nome.Should().Be(origem.displayName);
@@ -62,7 +62,7 @@ namespace AutomapperTeste
 
 			Usuario destino = mapper.Map<Usuario>(origem);
 
-			destino.Id.ToString().Should().Be(origem.accountId);
+			destino.AccountId.Should().Be(origem.accountId);
 			destino.Ativo.Should().Be(origem.active);
 			destino.Email.Should().Be(origem.emailAddress);
 			destino.Nome.Should().Be(origem.displayName);

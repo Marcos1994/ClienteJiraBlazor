@@ -14,7 +14,11 @@ namespace Repositorio.Profiles
 				.ForMember(d => d.Id, opt => opt.MapFrom(o => Convert.ToInt32(o.id)))
 				.ForMember(d => d.Autor, opt => opt.MapFrom(o => o.author))
 				.ForMember(d => d.Conteudo, opt => opt.MapFrom(o => o.body))
-				.ForMember(d => d.DataCriacao, opt => opt.MapFrom(o => Convert.ToDateTime(o.created))); //2022-10-04T20:06:51.613-0300
+				.ForMember(d => d.DataCriacao, opt => //2022-10-04T20:06:51.613-0300
+				{
+					opt.PreCondition(o => !string.IsNullOrEmpty(o.created));
+					opt.MapFrom(o => Convert.ToDateTime(o.created));
+				});
 		}
 	}
 }

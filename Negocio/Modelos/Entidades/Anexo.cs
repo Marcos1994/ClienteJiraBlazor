@@ -23,6 +23,6 @@ namespace Negocio.Modelos.Entidades
 		public string Nome { get; private set; }
 		public EnumTipoArquivo TipoArquivo { get; private set; }
 		public string Conteudo { get; private set; }
-		public DateTime DataCriacao { get; private set; }
+		public DateTime? DataCriacao { get; private set; }
 	}
 }

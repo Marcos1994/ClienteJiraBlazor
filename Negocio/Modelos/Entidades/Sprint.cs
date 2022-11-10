@@ -22,8 +22,8 @@ namespace Negocio.Modelos.Entidades
 
 		public int Id { get; private set; }
 		public string Nome { get; private set; }
-		public DateTime Inicio { get; private set; }
-		public DateTime Fim { get; private set; }
+		public DateTime? Inicio { get; private set; }
+		public DateTime? Fim { get; private set; }
 		public EnumSprint Estado { get; private set; }
 		public List<Tarefa> TarefasAlocadas { get; private set; } = new List<Tarefa>();
 		public List<Agendamento> TarefasAgendadas { get; private set; } = new List<Agendamento>();

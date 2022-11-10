@@ -20,8 +20,16 @@ namespace Repositorio.Profiles
 					(o.fields.status.name == "Concluído") ? EnumStatus.Concluido : EnumStatus.Backlog))
 				.ForMember(d => d.Reportado, opt => opt.MapFrom(o => o.fields.reporter))
 				.ForMember(d => d.Atribuido, opt => opt.MapFrom(o => o.fields.assignee))
-				.ForMember(d => d.DataInicio, opt => opt.MapFrom(o => Convert.ToDateTime(o.fields.customfield_12505)))
-				.ForMember(d => d.DataLimite, opt => opt.MapFrom(o => Convert.ToDateTime(o.fields.customfield_12506)))
+				.ForMember(d => d.DataInicio, opt =>
+				{
+					opt.PreCondition(o => !string.IsNullOrEmpty(o.fields.customfield_12505));
+					opt.MapFrom(o => Convert.ToDateTime(o.fields.customfield_12505));
+				})
+				.ForMember(d => d.DataLimite, opt =>
+				{
+					opt.PreCondition(o => !string.IsNullOrEmpty(o.fields.customfield_12506));
+					opt.MapFrom(o => Convert.ToDateTime(o.fields.customfield_12506));
+				})
 				.ForMember(d => d.Descricao, opt => opt.MapFrom(o => o.fields.description))
 				.ForMember(d => d.Projeto, opt => opt.MapFrom(o => o.fields.project))
 				.ForMember(d => d.Rotulos, opt => opt.MapFrom(o => o.fields.labels))
@@ -38,8 +46,16 @@ namespace Repositorio.Profiles
 					(o.fields.status.name == "Concluído") ? EnumStatus.Concluido : EnumStatus.Backlog))
 				.ForMember(d => d.Reportado, opt => opt.MapFrom(o => o.fields.reporter))
 				.ForMember(d => d.Atribuido, opt => opt.MapFrom(o => o.fields.assignee))
-				.ForMember(d => d.DataInicio, opt => opt.MapFrom(o => Convert.ToDateTime(o.fields.customfield_12505)))
-				.ForMember(d => d.DataLimite, opt => opt.MapFrom(o => Convert.ToDateTime(o.fields.customfield_12506)))
+				.ForMember(d => d.DataInicio, opt =>
+				{
+					opt.PreCondition(o => !string.IsNullOrEmpty(o.fields.customfield_12505));
+					opt.MapFrom(o => Convert.ToDateTime(o.fields.customfield_12505));
+				})
+				.ForMember(d => d.DataLimite, opt =>
+				{
+					opt.PreCondition(o => !string.IsNullOrEmpty(o.fields.customfield_12506));
+					opt.MapFrom(o => Convert.ToDateTime(o.fields.customfield_12506));
+				})
 				.ForMember(d => d.Descricao, opt => opt.MapFrom(o => o.fields.description))
 				.ForMember(d => d.Projeto, opt => opt.MapFrom(o => o.fields.project))
 				.ForMember(d => d.Rotulos, opt => opt.MapFrom(o => o.fields.labels))

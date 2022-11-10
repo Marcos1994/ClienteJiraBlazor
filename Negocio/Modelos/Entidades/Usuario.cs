@@ -12,16 +12,16 @@ namespace Negocio.Modelos.Entidades
 
 		}
 
-		public Usuario(int id, string email, string urlAvatar, string nome, bool ativo)
+		public Usuario(string accountId, string email, string urlAvatar, string nome, bool ativo)
 		{
-			Id = id;
+			AccountId = accountId;
 			Email = email;
 			UrlAvatar = urlAvatar;
 			Nome = nome;
 			Ativo = ativo;
 		}
 
-		public int Id { get; private set; }
+		public string AccountId { get; private set; }
 		public string Email { get; private set; }
 		public string UrlAvatar { get; private set; }
 		public string Nome { get; private set; }

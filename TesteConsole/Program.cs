@@ -3,6 +3,7 @@ using ClienteJiraAPI.Cliente;
 using ClienteJiraAPI.Modelos.Entrada;
 using Repositorio.Profiles;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace TesteConsole
@@ -33,7 +34,8 @@ namespace TesteConsole
 				mc.AddProfile(new RelacionamentoProfile());
 			});
 			mapper = mappingConfig.CreateMapper();
-			Negocio.Modelos.Entidades.Tarefa tarefa = mapper.Map<Negocio.Modelos.Entidades.Tarefa>(item);
+
+			var tarefa = mapper.Map<Negocio.Modelos.Entidades.Tarefa>(item);
 
 			Console.WriteLine("Hello World!");
 		}

@@ -16,6 +16,6 @@ namespace Negocio.Modelos.Entidades
 		}
 
 		public int Tempo { get; private set; }
-		public DateTime Data { get; private set; }
+		public DateTime? Data { get; private set; }
 	}
 }

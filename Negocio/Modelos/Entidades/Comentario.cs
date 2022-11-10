@@ -20,6 +20,6 @@ namespace Negocio.Modelos.Entidades
 		public int Id { get; private set; }
 		public Usuario Autor { get; private set; }
 		public string Conteudo { get; private set; }
-		public DateTime DataCriacao { get; private set; }
+		public DateTime? DataCriacao { get; private set; }
 	}
 }

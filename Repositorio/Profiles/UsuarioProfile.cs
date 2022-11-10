@@ -13,7 +13,7 @@ namespace Repositorio.Profiles
 		public UsuarioProfile()
 		{
 			CreateMap<MembroEquipe, Usuario>()
-				.ForMember(d => d.Id, opt => opt.MapFrom(o => o.accountId))
+				.ForMember(d => d.AccountId, opt => opt.MapFrom(o => o.accountId))
 				.ForMember(d => d.Email, opt => opt.MapFrom(o => o.emailAddress))
 				.ForMember(d => d.Nome, opt => opt.MapFrom(o => o.displayName))
 				.ForMember(d => d.Ativo, opt => opt.MapFrom(o => o.active))

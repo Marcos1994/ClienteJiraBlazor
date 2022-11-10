@@ -14,7 +14,11 @@ namespace Repositorio.Profiles
 		{
 			CreateMap<ClienteJiraAPI.Modelos.Entrada.Apontamento, Negocio.Modelos.Entidades.Apontamento>()
 				.ForMember(d => d.Tempo, opt => opt.MapFrom(o => o.timeSpentSeconds))
-				.ForMember(d => d.Data, opt => opt.MapFrom(o => Convert.ToDateTime(o.started)));
+				.ForMember(d => d.Data, opt =>
+				{
+					opt.PreCondition(o => !string.IsNullOrEmpty(o.started));
+					opt.MapFrom(o => Convert.ToDateTime(o.started));
+				});
 		}
 	}
 }
