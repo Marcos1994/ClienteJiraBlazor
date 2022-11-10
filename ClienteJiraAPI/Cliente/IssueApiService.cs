@@ -46,8 +46,6 @@ namespace ClienteJiraAPI.Cliente
             {
                 using (HttpClient httpClient = new HttpClient())
                 {
-
-
                     using (var request = new HttpRequestMessage(new HttpMethod("GET"), "https://interfusao.atlassian.net/rest/api/2/issue/" + chaveItem))
                     {
                         request.Headers.TryAddWithoutValidation("Accept", "application/json");

@@ -11,6 +11,7 @@ namespace ClienteJiraAPI.Modelos.Entrada
 		public MembroEquipe updateAuthor { get; set; }
 		public string timeSpent { get; set; }
 		public int timeSpentSeconds { get; set; }
+		public string started { get; set; }
 		public string id { get; set; }
 		public string issueId { get; set; }
 	}

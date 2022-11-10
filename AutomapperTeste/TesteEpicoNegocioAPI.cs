@@ -78,7 +78,7 @@ namespace AutomapperTeste
 					},
 					created = "2022-10-04T19:05:27.230-0300",
 					customfield_10601 = "[644] Jira Client Blazor",
-					sumary = "Jira Client Blazor",
+					summary = "Jira Client Blazor",
 					status = new ClienteJiraAPI.Modelos.Entrada.Status()
 					{
 						name = "Em andamento"

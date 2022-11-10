@@ -32,8 +32,8 @@ namespace Negocio.Modelos.Entidades
 		public EnumStatus Status { get; protected set; }
 		public Usuario Reportado { get; private set; }
 		public Usuario Atribuido { get; private set; }
-		public DateTime DataInicio { get; protected set; }
-		public DateTime DataLimite { get; protected set; }
+		public DateTime? DataInicio { get; protected set; }
+		public DateTime? DataLimite { get; protected set; }
 		public string Descricao { get; protected set; }
 		public Projeto Projeto { get; protected set; }
 		public List<string> Rotulos { get; protected set; } = new List<string>();

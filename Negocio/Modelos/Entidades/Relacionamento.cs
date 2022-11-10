@@ -7,6 +7,11 @@ namespace Negocio.Modelos.Entidades
 {
 	public class Relacionamento
 	{
+		public Relacionamento()
+		{
+
+		}
+
 		public Relacionamento(Tarefa tarefaRelacionada, EnumRelacionamento tipoRelacionamento)
 		{
 			TarefaRelacionada = tarefaRelacionada;

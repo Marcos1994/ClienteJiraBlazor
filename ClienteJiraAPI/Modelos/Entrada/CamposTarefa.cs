@@ -23,5 +23,6 @@ namespace ClienteJiraAPI.Modelos.Entrada
 		public Prioridade priority { get; set; }
 		public Apontamentos worklog { get; set; }
 		public Acompanhamento timetracking { get; set; }
+		public List<ItemBase> subtasks { get; set; }
 	}
 }
