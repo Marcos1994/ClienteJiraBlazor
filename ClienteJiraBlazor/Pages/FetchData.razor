@@ -2,6 +2,7 @@
 
 @using ClienteJiraBlazor.Data
 @inject WeatherForecastService ForecastService
+@inject ServicoTarefa servicoTarefa
 
 <h1>Weather forecast</h1>
 
@@ -37,10 +38,11 @@ else
 }
 
 @code {
-    private WeatherForecast[] forecasts;
+	private WeatherForecast[] forecasts;
 
-    protected override async Task OnInitializedAsync()
-    {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-    }
+	protected override async Task OnInitializedAsync()
+	{
+		Tarefa item = await servicoTarefa.BuscarTarefa("NUMVALESA-2723");
+		forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+	}
 }

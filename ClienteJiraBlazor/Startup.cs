@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Negocio.IRepositorio;
+using Negocio.Servico;
+using Repositorio.Profiles;
+using Repositorio.Repositorios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +33,21 @@ namespace ClienteJiraBlazor
 			services.AddRazorPages();
 			services.AddServerSideBlazor();
 			services.AddSingleton<WeatherForecastService>();
+
+			services.AddAutoMapper(typeof(UsuarioProfile));
+			services.AddAutoMapper(typeof(ComentarioProfile));
+			services.AddAutoMapper(typeof(TarefaProfile));
+			services.AddAutoMapper(typeof(SubtarefaProfile));
+			services.AddAutoMapper(typeof(EpicoProfile));
+			services.AddAutoMapper(typeof(ProjetoProfile));
+			services.AddAutoMapper(typeof(AnexoProfile));
+			services.AddAutoMapper(typeof(ApontamentoProfile));
+			services.AddAutoMapper(typeof(SprintProfile));
+			services.AddAutoMapper(typeof(RelacionamentoProfile));
+
+			services.AddScoped<IRepositorioTarefa, RepositorioTarefa>();
+
+			services.AddScoped<ServicoTarefa>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
