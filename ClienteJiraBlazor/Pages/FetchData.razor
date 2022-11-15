@@ -42,7 +42,6 @@ else
 
 	protected override async Task OnInitializedAsync()
 	{
-		Tarefa item = await servicoTarefa.BuscarTarefa("NUMVALESA-2723");
 		forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
 	}
 }

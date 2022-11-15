@@ -1,0 +1,72 @@
+﻿@page "/EpicosPorSprint"
+
+@using ClienteJiraBlazor.Data
+@inject ServicoTarefa servicoTarefa
+
+<h1>Weather forecast</h1>
+
+<!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+<div class="row">
+	<div class="col-2 border">Épico</div>
+	<div class="col-3 border">Tarefa</div>
+	<div class="col border">Segunda</div>
+	<div class="col border">Terça</div>
+	<div class="col border">Quarta</div>
+	<div class="col border">Quinta</div>
+	<div class="col border">Sexta</div>
+</div>
+
+@if (epicos == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	@foreach (var e in epicos)
+	{
+		<div class="row">
+			<div class="col-2 border">@e.Nome</div>
+			<div class="col">
+				@foreach (var t in e.Tarefas)
+				{
+					<div class="row">
+						<div class="col-3 border">@t.Nome</div>
+						@for (int i = 0; i < 5; i++)
+						{
+							<div class="col border">
+								@foreach (var apont in t.Apontamentos)
+								{
+									if (apont.Data.Value.Date == sprint.Inicio.Value.Date.AddDays(i))
+									{
+										<div class="row">@(apont.Tempo / 360)h</div>
+									}
+								}
+							</div>
+						}
+					</div>
+				}
+			</div>
+		</div>
+	}
+}
+
+
+
+@code {
+	public Sprint sprint { get; set; }
+	private List<Epico> epicos;
+
+	protected override async Task OnInitializedAsync()
+	{
+		sprint = new Sprint(1, "Sprint", new DateTime(2022, 10, 24), new DateTime(2022, 10, 28), Negocio.Modelos.Entidades.Enum.EnumSprint.Concluida);
+		Tarefa t1 = await servicoTarefa.BuscarTarefa("NUMVALESA-2723");
+		Tarefa t2 = await servicoTarefa.BuscarTarefa("NUMVALESA-2766");
+		Tarefa t3 = await servicoTarefa.BuscarTarefa("NUMVALESA-2764");
+		Epico e1 = t1.Epico;
+		Epico e2 = t3.Epico;
+		e1.Tarefas.Add(t1);
+		e1.Tarefas.Add(t2);
+		e2.Tarefas.Add(t3);
+		epicos = new List<Epico>() { e1, e2 };
+	}
+}
