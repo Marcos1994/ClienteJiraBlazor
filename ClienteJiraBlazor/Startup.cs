@@ -46,8 +46,10 @@ namespace ClienteJiraBlazor
 			services.AddAutoMapper(typeof(RelacionamentoProfile));
 
 			services.AddScoped<IRepositorioTarefa, RepositorioTarefa>();
+			services.AddScoped<IRepositorioEpico, RepositorioEpico>();
 
 			services.AddScoped<ServicoTarefa>();
+			services.AddScoped<ServicoEpico>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
