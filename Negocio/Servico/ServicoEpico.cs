@@ -19,9 +19,9 @@ namespace Negocio.Servico
 			this.rEpico = rEpico;
 		}
 
-		public async Task<List<Epico>> BuscarEpicosComTarefasPorSprint(int idSprint, string usuario)
+		public async Task<Epico> BuscarEpico(string chave)
 		{
-			return await rEpico.BuscarEpicosComTarefasEmSprint(idSprint, usuario);
+			return await rEpico.BuscarEpico(chave);
 		}
 	}
 }

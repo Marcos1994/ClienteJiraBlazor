@@ -8,7 +8,6 @@ namespace Negocio.IRepositorio
 {
 	public interface IRepositorioEpico
 	{
-		public Task<List<Epico>> BuscarEpicosComTarefasEmSprint(int idSprint);
-		public Task<List<Epico>> BuscarEpicosComTarefasEmSprint(int idSprint, string usuario);
+		public Task<Epico> BuscarEpico(string chave);
 	}
 }

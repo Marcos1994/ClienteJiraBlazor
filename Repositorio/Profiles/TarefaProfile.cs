@@ -37,12 +37,12 @@ namespace Repositorio.Profiles
 				.ForMember(d => d.Rotulos, opt => opt.MapFrom(o => o.fields.labels))
 				.ForMember(d => d.Anexos, opt => opt.MapFrom(o => o.fields.attachment))
 				.ForMember(d => d.Comentarios, opt => opt.MapFrom(o => o.fields.comment.comments))
-
 				.ForMember(d => d.Epico, opt =>
 				{
 					opt.PreCondition(o => o.fields.parent != null && o.fields.parent.fields.issueType.id == "5");
 					opt.MapFrom(o => o.fields.parent);
 				})
+
 				.ForMember(d => d.Estimativa, opt => opt.MapFrom(o => o.fields.timeEstimate))
 				.ForMember(d => d.Storypoints, opt => opt.MapFrom(o => o.fields.customfield_10004))
 				.ForMember(d => d.Prioridade, opt => opt.MapFrom(o =>
@@ -84,7 +84,12 @@ namespace Repositorio.Profiles
 				.ForMember(d => d.Projeto, opt => opt.MapFrom(o => o.fields.project))
 				.ForMember(d => d.Rotulos, opt => opt.MapFrom(o => o.fields.labels))
 				.ForMember(d => d.Anexos, opt => opt.MapFrom(o => o.fields.attachment))
-				.ForMember(d => d.Comentarios, opt => opt.MapFrom(o => o.fields.comment.comments));
+				.ForMember(d => d.Comentarios, opt => opt.MapFrom(o => o.fields.comment.comments))
+				.ForMember(d => d.Epico, opt =>
+				{
+					opt.PreCondition(o => o.fields.parent != null && o.fields.parent.fields.issueType.id == "5");
+					opt.MapFrom(o => o.fields.parent);
+				});
 		}
 	}
 }

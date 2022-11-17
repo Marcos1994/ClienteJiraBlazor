@@ -25,5 +25,13 @@ namespace Repositorio.Repositorios
 			var tarefa = await service.GetJiraIssueAsync<ItemTarefa>(chave);
 			return mapper.Map<Tarefa>(tarefa);
 		}
+
+		public async Task<List<Tarefa>> BuscarTarefasPorSprint(int idSprint, string usuario)
+		{
+			IssueApiService service = new IssueApiService();
+			List<ItemBase> itens = await service.GetItensPorSprintAsync(idSprint, usuario);
+
+			return mapper.Map<List<Tarefa>>(itens);
+		}
 	}
 }

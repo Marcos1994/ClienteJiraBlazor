@@ -9,5 +9,6 @@ namespace Negocio.IRepositorio
 	public interface IRepositorioTarefa
 	{
 		public Task<Tarefa> BuscarTarefa(string chave);
+		public Task<List<Tarefa>> BuscarTarefasPorSprint(int idSprint, string usuario);
 	}
 }

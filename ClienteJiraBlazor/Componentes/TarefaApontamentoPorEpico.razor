@@ -1,0 +1,43 @@
+﻿@inject ServicoTarefa servicoTarefa
+
+@if (tarefa == null)
+{
+	<p>Carregando...</p>
+}
+else
+{
+	<div class="row">
+		<div class="col border">@tarefa.Nome</div>
+		<div class="col-4 border">
+			<div class="row">
+				@for (int i = 0; i < 5; i++)
+				{
+					<div class="col border">
+						@foreach (var a in tarefa.Apontamentos)
+						{
+							if (a.Data.Value.Date == sprint.Inicio.Value.Date.AddDays(i))
+							{
+								<div class="align-content-center">@(a.Tempo / 3600)h</div>
+							}
+						}
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+}
+
+@code {
+	[Parameter]
+	public string chaveTarefa { get; set; }
+
+	[Parameter]
+	public Sprint sprint { get; set; }
+
+	private Tarefa tarefa;
+
+	protected override async Task OnInitializedAsync()
+	{
+		tarefa = await servicoTarefa.BuscarTarefa(chaveTarefa);
+	}
+}

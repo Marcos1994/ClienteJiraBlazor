@@ -23,5 +23,10 @@ namespace Negocio.Servico
 		{
 			return await rTarefa.BuscarTarefa(chave);
 		}
+
+		public async Task<List<Tarefa>> BuscarTarefasPorSprint(int idSprint, string usuario)
+		{
+			return await rTarefa.BuscarTarefasPorSprint(idSprint, usuario);
+		}
 	}
 }

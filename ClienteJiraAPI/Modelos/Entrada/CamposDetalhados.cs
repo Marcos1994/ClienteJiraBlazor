@@ -29,6 +29,7 @@ namespace ClienteJiraAPI.Modelos.Entrada
 		public string description { get; set; }
 		public Progresso aggregateProgress { get; set; }
 		public Projeto project { get; set; }
+		public ItemBase parent { get; set; }
 		public List<Anexo> attachment { get; set; }
 		public Comentarios comment { get; set; }
 		public Progresso progress { get; set; }

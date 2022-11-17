@@ -1,0 +1,37 @@
+﻿@inject ServicoEpico servicoEpico
+
+<div class="row">
+	@if (epico == null)
+	{
+		<p>Carregando...</p>
+	}
+	else
+	{
+
+		<div class="col-4 border">@epico.Nome</div>
+		<div class="col">
+			@foreach (var t in tarefas)
+			{
+				<TarefaApontamentoPorEpico chaveTarefa="@t.Chave" sprint="@sprint"></TarefaApontamentoPorEpico>
+			}
+		</div>
+	}
+</div>
+
+@code {
+	[Parameter]
+	public string chaveEpico { get; set; }
+
+	[Parameter]
+	public Sprint sprint { get; set; }
+
+	[Parameter]
+	public List<Tarefa> tarefas { get; set; }
+
+	private Epico epico;
+
+	protected override async Task OnInitializedAsync()
+	{
+		epico = await servicoEpico.BuscarEpico(chaveEpico);
+	}
+}

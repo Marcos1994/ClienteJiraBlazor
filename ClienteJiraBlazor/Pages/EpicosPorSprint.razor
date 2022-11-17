@@ -2,51 +2,36 @@
 
 @using ClienteJiraBlazor.Data
 @inject ServicoTarefa servicoTarefa
-@inject ServicoEpico servicoEpico
 
 <h1>Épicos e Tarefas por sprint</h1>
 
 <div class="row">
-	<div class="col-2 border">Épico</div>
-	<div class="col-3 border">Tarefa</div>
-	<div class="col border">SEG</div>
-	<div class="col border">TER</div>
-	<div class="col border">QUA</div>
-	<div class="col border">QUI</div>
-	<div class="col border">SEX</div>
+	<div class="col-4 border">Épicos</div>
+	<div class="col">
+		<div class="row">
+			<div class="col border">Tarefas</div>
+			<div class="col-4 border">
+				<div class="row">
+					<div class="col border">SEG</div>
+					<div class="col border">TER</div>
+					<div class="col border">QUA</div>
+					<div class="col border">QUI</div>
+					<div class="col border">SEX</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
-@if (epicos == null)
+@if (chavesEpicos == null)
 {
 	<p><em>Loading...</em></p>
 }
 else
 {
-	@foreach (var e in epicos)
+	@foreach (string chave in chavesEpicos)
 	{
-		<div class="row">
-			<div class="col-2 border">@e.Nome</div>
-			<div class="col">
-				@foreach (var t in e.Tarefas)
-				{
-					<div class="row">
-						<div class="col-3 border">@t.Nome</div>
-						@for (int i = 0; i < 5; i++)
-						{
-							<div class="col border">
-								@foreach (var apont in t.Apontamentos)
-								{
-									if (apont.Data.Value.Date == sprint.Inicio.Value.Date.AddDays(i))
-									{
-										<div class="row">@(apont.Tempo / 3600)h</div>
-									}
-								}
-							</div>
-						}
-					</div>
-				}
-			</div>
-		</div>
+		<ApontamentoPorEpico chaveEpico="@chave" sprint="@sprint" tarefas="@tarefas.Where(t => t.Epico != null && t.Epico.Chave == chave).ToList()"></ApontamentoPorEpico>
 	}
 }
 
@@ -54,11 +39,14 @@ else
 
 @code {
 	public Sprint sprint { get; set; }
-	private List<Epico> epicos;
+	private List<Tarefa> tarefas;
+	private List<string> chavesEpicos;
 
 	protected override async Task OnInitializedAsync()
 	{
 		sprint = new Sprint(583, "NUAGIL Sprint 127 1411-1811", new DateTime(2022, 11, 14), new DateTime(2022, 11, 18), Negocio.Modelos.Entidades.Enum.EnumSprint.Ativa);
-		epicos = await servicoEpico.BuscarEpicosComTarefasPorSprint(sprint.Id, "marcos.medeiros@interfusaoti.com.br");
+		tarefas = await servicoTarefa.BuscarTarefasPorSprint(sprint.Id, "marcos.medeiros@interfusaoti.com.br");
+		//chavesEpicos = (from t in tarefas where t.Epico != null select t.Epico.Chave).Distinct().ToList();
+		chavesEpicos = tarefas.Where(t => t.Epico != null).Select(t => t.Epico.Chave).Distinct().ToList();
 	}
 }
