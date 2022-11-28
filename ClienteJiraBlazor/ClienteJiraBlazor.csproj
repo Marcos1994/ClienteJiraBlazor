@@ -1,12 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Negocio\Negocio.csproj" />
     <ProjectReference Include="..\Repositorio\Repositorio.csproj" />
+    <PackageReference Include="Blazorise.Bootstrap" Version="1.1.4.1" />
+    <PackageReference Include="Blazorise.DataGrid" Version="1.1.4.1" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.1.4.1" />
   </ItemGroup>
 
 </Project>

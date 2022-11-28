@@ -10,6 +10,9 @@ using Negocio.IRepositorio;
 using Negocio.Servico;
 using Repositorio.Profiles;
 using Repositorio.Repositorios;
+using Blazorise;
+using Blazorise.Bootstrap;
+using Blazorise.Icons.FontAwesome;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +35,7 @@ namespace ClienteJiraBlazor
 		{
 			services.AddRazorPages();
 			services.AddServerSideBlazor();
+			services.AddBlazorise().AddBootstrapProviders().AddFontAwesomeIcons();
 			services.AddSingleton<WeatherForecastService>();
 
 			services.AddAutoMapper(typeof(UsuarioProfile));
@@ -70,6 +74,7 @@ namespace ClienteJiraBlazor
 			app.UseStaticFiles();
 
 			app.UseRouting();
+			//app.ApplicationServices.UseBootstrapProviders().UseFontAwesomeIcons();	
 
 			app.UseEndpoints(endpoints =>
 			{

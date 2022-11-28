@@ -1,26 +1,13 @@
 ﻿@page "/EpicosPorSprint"
-
+@using Blazorise.DataGrid
 @inject ServicoTarefa servicoTarefa
 
 <h1>Épicos e Tarefas por sprint</h1>
 
-<div class="row">
-	<div class="col-4 border">Épicos</div>
-	<div class="col">
-		<div class="row">
-			<div class="col border">Tarefas</div>
-			<div class="col-4 border">
-				<div class="row">
-					<div class="col border">SEG</div>
-					<div class="col border">TER</div>
-					<div class="col border">QUA</div>
-					<div class="col border">QUI</div>
-					<div class="col border">SEX</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+<DataGrid TItem="Tarefa" Data="@tarefas">
+	<DataGridColumn TItem="Tarefa" Field="@nameof(tarefas)" Caption="tarefa"></DataGridColumn>
+
+</DataGrid>
 
 @if (chavesEpicos == null)
 {

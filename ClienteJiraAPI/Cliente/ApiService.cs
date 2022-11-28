@@ -16,8 +16,8 @@ namespace ClienteJiraAPI.Cliente
             {
                 using (var writer = new StreamWriter("token.txt"))
                 {
-                    writer.WriteLine("USUARIO");
-                    writer.WriteLine("TOKEN");
+                    writer.WriteLine("diego.lemos@interfusaoti.com.br");
+                    writer.WriteLine("voxZl3I4cMiGhgSyqkED5B50");
                 }
             }
 
