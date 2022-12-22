@@ -3884,8 +3884,8 @@ textarea.form-control-lg {
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
   color: #495057;
-  background-color: #fff;
-  border-color: #dee2e6 #dee2e6 #fff;
+  background-color: rgb(20, 14, 203);
+  border-color: rgb(20, 14, 203) rgb(20, 14, 203) rgb(20, 14, 203);
 }
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
@@ -3900,7 +3900,7 @@ textarea.form-control-lg {
 }
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  color: #fff;
+  color: #0d6efd;
   background-color: #0d6efd;
 }
 
@@ -4249,7 +4249,7 @@ textarea.form-control-lg {
 
 .card {
   position: relative;
-  display: flex;
+  display: under;
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
@@ -10833,5 +10833,6 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
 
 /*# sourceMappingURL=bootstrap.css.map */

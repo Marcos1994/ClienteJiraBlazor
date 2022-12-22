@@ -1,6 +1,5 @@
 ﻿@inject ServicoEpico servicoEpico
 
-<div class="row">
 	@if (epico == null)
 	{
 		<p>Carregando...</p>
@@ -8,15 +7,18 @@
 	else
 	{
 
-		<div class="col-4 border">@epico.Nome</div>
-		<div class="col">
+		<h4>@epico.Nome</h4>
+		<div class="row row-cols-3 g-3">
+
 			@foreach (var t in tarefas)
 			{
+				  <div class="col">
 				<TarefaApontamentoPorEpico chaveTarefa="@t.Chave" sprint="@sprint"></TarefaApontamentoPorEpico>
+				  </div>
 			}
+	  
 		</div>
 	}
-</div>
 
 @code {
 	[Parameter]

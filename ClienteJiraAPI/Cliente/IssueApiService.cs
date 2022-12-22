@@ -50,7 +50,7 @@ namespace ClienteJiraAPI.Cliente
                 using (HttpClient httpClient = new HttpClient())
                 {
                     using (var request = new HttpRequestMessage(new HttpMethod("GET"),
-                        $"https://interfusao.atlassian.net/rest/api/2/search?jql=cf%5B10300%5D%3D{idSprint}%20AND%20assignee%3D%22{Usuario}%22"))
+                        $"https://interfusao.atlassian.net/rest/api/2/search?jql=cf%5B10300%5D%3D{idSprint}%20AND%20assignee%3D%22{usuario}%22"))
                     {
                         request.Headers.TryAddWithoutValidation("Accept", "application/json");
 

@@ -10,51 +10,15 @@
 }
 else
 {
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Épico</th>
-      <th scope="col">Sprint</th>
-	  <th scope="col">Tarefa</th>
-      <th scope="col">SEG</th>
-	  <th scope="col">TER</th>
-	  <th scope="col">QUA</th>
-	  <th scope="col">QUI</th>
-	  <th scope="col">SEX</th>
-    </tr>
-  </thead>
-  <tbody>
-    
 	@foreach (string chave in chavesEpicos)
 	{
-		@foreach (Tarefa tarefa in tarefas)
-		{		@if(@tarefa.Epico!=null)
-				{
-					
-					<tr>
-	  				<td>@tarefa.Epico.Nome</td>
-      				<td>@sprint.Nome</td>
-					<td>@tarefa.Nome</td>
-					@for (int i = 0; i < 5; i++)
-					{
-						@foreach (var a in tarefa.Apontamentos)
-						{
-							if (a.Data.Value.Date == sprint.Inicio.Value.Date.AddDays(i))
-							{
-								<td>@(a.Tempo / 3600)h</td>
-							}
-						}
-					}
-					</tr>
-				}	
-				
-		//<ApontamentoPorEpico chaveEpico="@chave" sprint="@sprint" tarefas="@tarefas.Where(t => t.Epico != null && t.Epico.Chave == chave).ToList()"></ApontamentoPorEpico>
-		}	
+
+		<ApontamentoPorEpico chaveEpico="@chave" sprint="@sprint"
+	tarefas="@tarefas.Where(t => t.Epico != null && t.Epico.Chave == chave).ToList()"></ApontamentoPorEpico>
 	}
-	
-  </tbody>
-</table>
 }
+
+
 
 
 
@@ -65,7 +29,8 @@ else
 
 	protected override async Task OnInitializedAsync()
 	{
-		sprint = new Sprint(583, "NUAGIL Sprint 127 1411-1811", new DateTime(2022, 11, 14), new DateTime(2022, 11, 18), Negocio.Modelos.Entidades.Enum.EnumSprint.Ativa);
+		sprint = new Sprint(583, "NUAGIL Sprint 127 1411-1811", new DateTime(2022, 11, 14), new DateTime(2022, 11, 18),
+		Negocio.Modelos.Entidades.Enum.EnumSprint.Ativa);
 		tarefas = await servicoTarefa.BuscarTarefasPorSprint(sprint.Id, "marcos.medeiros@interfusaoti.com.br");
 		//chavesEpicos = (from t in tarefas where t.Epico != null select t.Epico.Chave).Distinct().ToList();
 		chavesEpicos = tarefas.Where(t => t.Epico != null).Select(t => t.Epico.Chave).Distinct().ToList();

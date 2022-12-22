@@ -2,29 +2,45 @@
 
 @if (tarefa == null)
 {
-	<p>Carregando...</p>
+
 }
 else
 {
-	<div class="row">
-		<div class="col border">@tarefa.Nome</div>
-		<div class="col-4">
-			<div class="row">
+
+	<div class="card" style="width: 18rem;">
+		<div class="card-body">
+			<h5 class="card-title">@tarefa.Nome</h5>
+			@foreach (var c in tarefa.Comentarios)
+			{
+				string comentario = c.Conteudo;
+				<a class="btn" @onclick="() => mostrarComentario(comentario)">
+					<i class='fas fa-comment-alt' style='font-size:32px;color:blue'></i>
+				</a>
+				<Popup @ref="popupRef" />
+
+				//<p class="card-text">@c.Conteudo</p>
+
+			}
+		</div>
+
+		<div class="card-footer">
+			<div class="container">
 				@for (int i = 0; i < 5; i++)
 				{
-					<div class="col border">
-						@foreach (var a in tarefa.Apontamentos)
+
+					@foreach (var a in tarefa.Apontamentos)
+					{
+						if (a.Data.Value.Date == sprint.Inicio.Value.Date.AddDays(i))
 						{
-							if (a.Data.Value.Date == sprint.Inicio.Value.Date.AddDays(i))
-							{
-								<div class="align-content-center">@(a.Tempo / 3600)h</div>
-							}
+							<div class="circle-singleline">@(a.Tempo / 3600)h</div>
 						}
-					</div>
+					}
+
 				}
 			</div>
 		</div>
 	</div>
+
 }
 
 @code {
@@ -39,5 +55,12 @@ else
 	protected override async Task OnInitializedAsync()
 	{
 		tarefa = await servicoTarefa.BuscarTarefa(chaveTarefa);
+	}
+	private Popup popupRef;
+
+	private void mostrarComentario(string Comentario)
+	{
+		// Shows the popup at the center of the screen
+		popupRef.Show(Comentario);
 	}
 }
