@@ -7,37 +7,35 @@
 else
 {
 
-	<div class="card" style="width: 18rem;">
+	<div class="card" style="width: 105%;">
+		<div class="card-header">
+    		<h5 class="card-title">@tarefa.Nome</h5>
+  		</div>
 		<div class="card-body">
-			<h5 class="card-title">@tarefa.Nome</h5>
+			<h5 >Status: @tarefa.Status</h5>
 			@foreach (var c in tarefa.Comentarios)
 			{
 				string comentario = c.Conteudo;
-				<a class="btn" @onclick="() => mostrarComentario(comentario)">
-					<i class='fas fa-comment-alt' style='font-size:32px;color:blue'></i>
+				string autor = c.Autor.Nome;
+				<a class="btn" @onclick="() => mostrarComentario(comentario, autor)">
+					<i class='fas fa-comment-alt' style='font-size:26px;color:blue'></i>
 				</a>
 				<Popup @ref="popupRef" />
-
-				//<p class="card-text">@c.Conteudo</p>
-
 			}
 		</div>
 
 		<div class="card-footer">
-			<div class="container">
+			<a>Apontamento das Horas:</a><br>
 				@for (int i = 0; i < 5; i++)
 				{
-
 					@foreach (var a in tarefa.Apontamentos)
 					{
 						if (a.Data.Value.Date == sprint.Inicio.Value.Date.AddDays(i))
 						{
-							<div class="circle-singleline">@(a.Tempo / 3600)h</div>
+							<div class="circle-singleline"> @(a.Tempo / 3600)h na @diaDaSemana(i) </div>
 						}
 					}
-
 				}
-			</div>
 		</div>
 	</div>
 
@@ -58,9 +56,19 @@ else
 	}
 	private Popup popupRef;
 
-	private void mostrarComentario(string Comentario)
+	private void mostrarComentario(string Comentario, string autor)
 	{
 		// Shows the popup at the center of the screen
-		popupRef.Show(Comentario);
+		popupRef.Show(Comentario, autor);
+	}
+	private string diaDaSemana(int i){
+		switch(i){
+			case 0: return "segunda-feira";
+			case 1: return "terça-feira";
+			case 2: return "quarta-feira";
+			case 3: return "quinta-feira";
+			case 4: return "sexta-feira";
+			default: return "dia inválido";
+		}
 	}
 }

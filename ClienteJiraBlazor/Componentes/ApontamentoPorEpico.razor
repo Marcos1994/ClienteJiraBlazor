@@ -1,24 +1,41 @@
 ﻿@inject ServicoEpico servicoEpico
 
-	@if (epico == null)
-	{
-		<p>Carregando...</p>
-	}
-	else
-	{
+@if (epico == null)
+{
+}
+else
+{
 
-		<h4>@epico.Nome</h4>
-		<div class="row row-cols-3 g-3">
+	<br><br>
+	
+		<br><br>
+		<div id="accordion">
+			<div class="card">
+				<div class="card-header" id="heading">
+					<h5 class="mb-0">
+						<button class="btn btn-link" data-toggle="collapse" data-target="#collapseBody" aria-expanded="false"
+						aria-controls="collapseBody">
+							<h4>@epico.Nome</h4>
+						</button>
+					</h5>
+				</div>
 
-			@foreach (var t in tarefas)
-			{
-				  <div class="col">
-				<TarefaApontamentoPorEpico chaveTarefa="@t.Chave" sprint="@sprint"></TarefaApontamentoPorEpico>
-				  </div>
-			}
-	  
+				<div id="collapseBody" class="collapse show" aria-labelledby="heading" data-parent="#accordion">
+					<div class="card-body">
+						<div class="row">
+						@foreach (var t in tarefas)
+						{
+							<div class="col-lg-4 d-flex align-items-stretch">
+								<TarefaApontamentoPorEpico chaveTarefa="@t.Chave" sprint="@sprint"></TarefaApontamentoPorEpico>
+							</div>
+						}
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	}
+
+}
 
 @code {
 	[Parameter]

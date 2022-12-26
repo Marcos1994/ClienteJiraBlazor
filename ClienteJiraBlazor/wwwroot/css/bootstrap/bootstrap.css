@@ -73,6 +73,8 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-bottom: 0.5rem;
   font-weight: 500;
   line-height: 1.2;
+  font-family:Arial, Helvetica, sans-serif;
+	
 }
 
 h1, .h1 {
@@ -589,6 +591,13 @@ progress {
   color: #6c757d;
 }
 
+.jira-container{
+  width: 100%;
+  padding-right: 10%;
+  padding-left: 10%;
+  margin-right: auto;
+  margin-left: auto;
+}
 .container,
 .container-fluid,
 .container-xxl,

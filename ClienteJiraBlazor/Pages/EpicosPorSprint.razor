@@ -2,8 +2,8 @@
 @using Blazorise.DataGrid
 @inject ServicoTarefa servicoTarefa
 
-<h1>Épicos e Tarefas por sprint</h1>
-
+<h2>ÉPICOS E TAREFAS DA SPRINT</h2>
+<br><br>
 @if (chavesEpicos == null)
 {
 	<p><em>Loading...</em></p>
@@ -15,6 +15,7 @@ else
 
 		<ApontamentoPorEpico chaveEpico="@chave" sprint="@sprint"
 	tarefas="@tarefas.Where(t => t.Epico != null && t.Epico.Chave == chave).ToList()"></ApontamentoPorEpico>
+		<br>
 	}
 }
 
