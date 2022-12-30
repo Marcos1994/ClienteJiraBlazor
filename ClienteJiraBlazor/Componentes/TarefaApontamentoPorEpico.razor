@@ -9,10 +9,10 @@ else
 
 	<div class="card" style="width: 105%;">
 		<div class="card-header">
-    		<h5 class="card-title">@tarefa.Nome</h5>
+    		<h6 class="card-title">@tarefa.Nome</h6>
   		</div>
 		<div class="card-body">
-			<h5 >Status: @tarefa.Status</h5>
+			<h6 >Status: @tarefa.Status</h6>
 			@foreach (var c in tarefa.Comentarios)
 			{
 				string comentario = c.Conteudo;
@@ -25,7 +25,8 @@ else
 		</div>
 
 		<div class="card-footer">
-			<a>Apontamento das Horas:</a><br>
+
+			
 				@for (int i = 0; i < 5; i++)
 				{
 					@foreach (var a in tarefa.Apontamentos)

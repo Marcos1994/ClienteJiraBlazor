@@ -2,7 +2,7 @@
 @using Blazorise.DataGrid
 @inject ServicoTarefa servicoTarefa
 
-<h2>ÉPICOS E TAREFAS DA SPRINT</h2>
+<h3>ÉPICOS E TAREFAS DA SPRINT</h3>
 <br><br>
 @if (chavesEpicos == null)
 {
@@ -10,6 +10,37 @@
 }
 else
 {
+
+	<div class="btn-group dropdown">
+		<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+		aria-expanded="false">
+			Equipe
+		</button>
+		<div class="dropdown-menu">
+			<!-- Dropdown menu links -->
+	</div>
+	</div>
+
+	<div class="btn-group dropdown">
+		<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+		aria-expanded="false">
+			Pessoa
+		</button>
+		<div class="dropdown-menu">
+			<!-- Dropdown menu links -->
+	</div>
+	</div>
+
+	<div class="btn-group dropdown">
+		<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+		aria-expanded="false">
+			@sprint.Nome
+		</button>
+		<div class="dropdown-menu">
+			<!-- Dropdown menu links -->
+	</div>
+	</div>
+
 	@foreach (string chave in chavesEpicos)
 	{
 

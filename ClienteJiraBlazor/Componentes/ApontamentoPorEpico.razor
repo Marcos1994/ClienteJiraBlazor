@@ -5,35 +5,43 @@
 }
 else
 {
+ 	<br><br>
+	<div id="accordion">
+		<div class="card">
+			<div class="card-header" id="heading">
+				<h5 class="mb-0">
+					<button class="btn btn-link" data-toggle="collapse" data-target="#collapseBody" aria-expanded="false"
+					aria-controls="collapseBody">
+						<h6>@epico.Nome</h6>
+					</button>
+				</h5>
 
-	<br><br>
-	
-		<br><br>
-		<div id="accordion">
-			<div class="card">
-				<div class="card-header" id="heading">
-					<h5 class="mb-0">
-						<button class="btn btn-link" data-toggle="collapse" data-target="#collapseBody" aria-expanded="false"
-						aria-controls="collapseBody">
-							<h4>@epico.Nome</h4>
-						</button>
-					</h5>
-				</div>
+				@foreach (var c in epico.Comentarios)
+				{
+				string comentario = c.Conteudo;
+				string autor = c.Autor.Nome;
+				<a class="btn" @onclick="() => mostrarComentario(comentario, autor)">
+					<i class='fas fa-comment-alt' style='font-size:26px;color:blue'></i>
+				</a>
+				<Popup @ref="popupRef" />
+				}
 
-				<div id="collapseBody" class="collapse show" aria-labelledby="heading" data-parent="#accordion">
-					<div class="card-body">
-						<div class="row">
+			</div>
+
+			<div id="collapseBody" class="collapse show" aria-labelledby="heading" data-parent="#accordion">
+				<div class="card-body">
+					<div class="row">
 						@foreach (var t in tarefas)
 						{
 							<div class="col-lg-4 d-flex align-items-stretch">
 								<TarefaApontamentoPorEpico chaveTarefa="@t.Chave" sprint="@sprint"></TarefaApontamentoPorEpico>
 							</div>
 						}
-						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 
 }
 
@@ -52,5 +60,12 @@ else
 	protected override async Task OnInitializedAsync()
 	{
 		epico = await servicoEpico.BuscarEpico(chaveEpico);
+	}
+	private Popup popupRef;
+
+	private void mostrarComentario(string Comentario, string autor)
+	{
+		// Shows the popup at the center of the screen
+		popupRef.Show(Comentario, autor);
 	}
 }
