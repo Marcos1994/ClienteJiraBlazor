@@ -7,8 +7,8 @@
 else
 {
 
-	<div class="card" style="width: 105%;">
-		<div class="card-header">
+	<div class="card shadow-sm p-3 mb-5 bg-white rounded" style="width: 105%;">
+		<div class="card-header bg-primary text-white">
     		<h6 class="card-title">@tarefa.Nome</h6>
   		</div>
 		<div class="card-body">
@@ -17,8 +17,10 @@ else
 			{
 				string comentario = c.Conteudo;
 				string autor = c.Autor.Nome;
+				string data = c.DataCriacao.ToString();
+				autor = autor + ", " + data;
 				<a class="btn" @onclick="() => mostrarComentario(comentario, autor)">
-					<i class='fas fa-comment-alt' style='font-size:26px;color:blue'></i>
+					<i class='fas fa-comment-alt' style='font-size:25px;color: rgb(0,153,0)'></i>
 				</a>
 				<Popup @ref="popupRef" />
 			}

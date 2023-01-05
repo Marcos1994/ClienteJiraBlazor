@@ -2981,32 +2981,32 @@ textarea.form-control-lg {
 
 .btn-secondary {
   color: #fff;
-  background-color: #6c757d;
-  border-color: #6c757d;
+  background-color:rgb(0, 153, 0);
+  border-color: rgb(0, 153, 0);
 }
 .btn-secondary:hover {
   color: #fff;
-  background-color: #5c636a;
-  border-color: #565e64;
+  background-color: rgb(0, 170, 0);
+  border-color: rgb(0, 170, 0);
 }
 .btn-check:focus + .btn-secondary, .btn-secondary:focus {
   color: #fff;
-  background-color: #5c636a;
-  border-color: #565e64;
+  background-color: rgb(0, 153, 0);
+  border-color: rgb(0, 153, 0);
   box-shadow: 0 0 0 0.25rem rgba(130, 138, 145, 0.5);
 }
 .btn-check:checked + .btn-secondary, .btn-check:active + .btn-secondary, .btn-secondary:active, .btn-secondary.active, .show > .btn-secondary.dropdown-toggle {
   color: #fff;
-  background-color: #565e64;
-  border-color: #51585e;
+  background-color: rgb(0, 153, 0);
+  border-color: rgb(0, 153, 0);
 }
 .btn-check:checked + .btn-secondary:focus, .btn-check:active + .btn-secondary:focus, .btn-secondary:active:focus, .btn-secondary.active:focus, .show > .btn-secondary.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.25rem rgba(130, 138, 145, 0.5);
 }
 .btn-secondary:disabled, .btn-secondary.disabled {
   color: #fff;
-  background-color: #6c757d;
-  border-color: #6c757d;
+  background-color: rgb(0, 153, 0);
+  border-color:rgb(0, 153, 0);
 }
 
 .btn-success {
@@ -4296,6 +4296,7 @@ textarea.form-control-lg {
 }
 
 .card-title {
+  color: white;
   margin-bottom: 0.5rem;
 }
 
@@ -4318,8 +4319,8 @@ textarea.form-control-lg {
 .card-header {
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  background-color: rgb(8, 173, 55);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  background-color: rgb(8, 173, 55) !important;
+  /*border-bottom: 1px solid rgba(0, 0, 0, 0.125);*/
 }
 .card-header:first-child {
   border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
@@ -7404,7 +7405,11 @@ textarea.form-control-lg {
 }
 
 .bg-secondary {
-  background-color: #6c757d !important;
+  background-color: #009900 !important;
+}
+
+.bg-tertiary {
+  background-color: #000000 !important;
 }
 
 .bg-success {

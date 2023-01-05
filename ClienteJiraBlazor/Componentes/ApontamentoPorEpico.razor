@@ -5,31 +5,34 @@
 }
 else
 {
+
  	<br><br>
 	<div id="accordion">
-		<div class="card">
-			<div class="card-header" id="heading">
-				<h5 class="mb-0">
-					<button class="btn btn-link" data-toggle="collapse" data-target="#collapseBody" aria-expanded="false"
+		<!--<div class="card">-->
+			<!--<div class="card-header bg-tertiary" id="heading">-->
+				<!--<h5 class="mb-0"></h5>-->
+					<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseBody" aria-expanded="false"
 					aria-controls="collapseBody">
 						<h6>@epico.Nome</h6>
 					</button>
-				</h5>
+				<!--</h5>-->
 
 				@foreach (var c in epico.Comentarios)
 				{
 				string comentario = c.Conteudo;
 				string autor = c.Autor.Nome;
+				string data = c.DataCriacao.ToString();
+				autor = autor + ", " + data;
 				<a class="btn" @onclick="() => mostrarComentario(comentario, autor)">
 					<i class='fas fa-comment-alt' style='font-size:26px;color:blue'></i>
 				</a>
 				<Popup @ref="popupRef" />
 				}
 
-			</div>
+			<!--</div>-->
 
-			<div id="collapseBody" class="collapse show" aria-labelledby="heading" data-parent="#accordion">
-				<div class="card-body">
+			<div class="collapse" id="collapseBody">
+				<div class="card card-body">
 					<div class="row">
 						@foreach (var t in tarefas)
 						{
@@ -40,7 +43,7 @@ else
 					</div>
 				</div>
 			</div>
-		</div>
+		<!--</div>-->
 	</div>
 
 }
