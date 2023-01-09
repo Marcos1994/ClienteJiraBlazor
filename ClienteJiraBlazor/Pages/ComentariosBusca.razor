@@ -1,8 +1,16 @@
-﻿@page "/EpicosPorSprint"
+﻿@page "/ComentariosBusca"
+
+@using ClienteJiraBlazor.Data
 @inject ServicoTarefa servicoTarefa
 
-<h3>ÉPICOS E TAREFAS DA SPRINT</h3>
-<br><br>
+<h4>Buscar Comentários</h4>
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">Comentário</span>
+  </div>
+  <input type="text" class="form-control" placeholder="digite parte do comentário" aria-label="Username" aria-describedby="basic-addon1">
+</div>
 @if (chavesEpicos == null)
 {
 	<p><em>Loading...</em></p>
@@ -10,27 +18,15 @@
 else
 {
 
-	<div class="btn-group dropdown">
-		<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-		aria-expanded="false">
-			@sprint.Nome
-		</button>
-		<div class="dropdown-menu">
-			<!-- Dropdown menu links -->
-	</div>
-	</div>
-
-	@foreach (string chave in chavesEpicos)
+    @foreach (string chave in chavesEpicos)
 	{
 
 		<ApontamentoPorEpico chaveEpico="@chave" sprint="@sprint"
 	tarefas="@tarefas.Where(t => t.Epico != null && t.Epico.Chave == chave).ToList()"></ApontamentoPorEpico>
 		<br>
 	}
+
 }
-
-
-
 
 
 @code {
