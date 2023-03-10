@@ -33,5 +33,17 @@ namespace ClienteJiraAPI.Cliente
             Usuario = usuario;
             Token = token;
         }
+
+        public void SalvarTokens(string usuario, string token)
+        {
+            Usuario = usuario;
+            Token = token;
+
+            using (var writer = new StreamWriter("token.txt"))
+            {
+                writer.WriteLine(Usuario);
+                writer.WriteLine(Token);
+            }
+        }
     }
 }

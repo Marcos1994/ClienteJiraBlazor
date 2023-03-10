@@ -15,11 +15,11 @@ namespace ClienteJiraAPI.Modelos.Entrada
 		/// Sprints
 		/// </summary>
 		public List<Sprint> customfield_10300 { get; set; }
-		public int timeOriginalEstimate { get; set; }
+		public int? timeOriginalEstimate { get; set; }
 		/// <summary>
 		/// Storypoints
 		/// </summary>
-		public double customfield_10004 { get; set; }
+		public double? customfield_10004 { get; set; }
 		public Prioridade priority { get; set; }
 		public Apontamentos worklog { get; set; }
 		public Acompanhamento timetracking { get; set; }

@@ -12,7 +12,7 @@ namespace ClienteJiraAPI.Cliente
 	{
         public async Task<T> GetJiraIssueAsync<T>(string chaveItem)
         {
-            string result = string.Empty;
+            string itemStr = string.Empty;
 
             try
             {
@@ -31,7 +31,7 @@ namespace ClienteJiraAPI.Cliente
 						if (!response.IsSuccessStatusCode)
 							throw new Exception(response.ToString());
 
-						string itemStr = await response.Content.ReadAsStringAsync();
+						itemStr = await response.Content.ReadAsStringAsync();
                         T item = await response.Content.ReadFromJsonAsync<T>();
 						return item;
 					}
@@ -50,7 +50,7 @@ namespace ClienteJiraAPI.Cliente
                 using (HttpClient httpClient = new HttpClient())
                 {
                     using (var request = new HttpRequestMessage(new HttpMethod("GET"),
-                        $"https://interfusao.atlassian.net/rest/api/2/search?jql=cf%5B10300%5D%3D{idSprint}%20AND%20assignee%3D%22{Usuario}%22"))
+                        $"https://interfusao.atlassian.net/rest/api/2/search?jql=cf[10300]={idSprint} AND assignee=\"{ Usuario }\""))
                     {
                         request.Headers.TryAddWithoutValidation("Accept", "application/json");
 
@@ -66,6 +66,44 @@ namespace ClienteJiraAPI.Cliente
                         string retorno = await response.Content.ReadAsStringAsync();
                         List<ItemBase> itens = (await response.Content.ReadFromJsonAsync<IssuesApiResponse>()).issues;
                         return itens;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<ItemBase>> GetItensPorEpicoAsync(string chaveEpico, int paginacao = 0)
+        {
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    using (var request = new HttpRequestMessage(new HttpMethod("GET"),
+                        $"https://interfusao.atlassian.net/rest/api/2/search?jql=cf[10600]={chaveEpico}&maxResults=100&startAt={paginacao}"))
+                    {
+                        request.Headers.TryAddWithoutValidation("Accept", "application/json");
+
+                        var base64authorization = Convert.ToBase64String(Encoding.ASCII.GetBytes(Usuario + ":" + Token));
+                        request.Headers.TryAddWithoutValidation("Authorization", $"Basic {base64authorization}");
+
+                        //HttpResponseMessage response = await httpClient.PostAsJsonAsync($"/Usuario/Login", new Item());
+                        HttpResponseMessage response = await httpClient.SendAsync(request);
+
+                        if (!response.IsSuccessStatusCode)
+                            throw new Exception(response.ToString());
+
+                        string retorno = await response.Content.ReadAsStringAsync();
+                        List<ItemBase> itens = (await response.Content.ReadFromJsonAsync<IssuesApiResponse>()).issues;
+
+						if (itens.Count >= 100)
+						{
+							itens.AddRange(await GetItensPorEpicoAsync(chaveEpico, paginacao + 100));
+						}
+
+						return itens;
                     }
                 }
             }

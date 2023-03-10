@@ -23,5 +23,10 @@ namespace Negocio.Servico
 		{
 			return await rEpico.BuscarEpico(chave);
 		}
+
+		public async Task<List<Tarefa>> BuscarTarefas(string chave)
+		{
+			return await rEpico.BuscarTarefas(chave);
+		}
 	}
 }

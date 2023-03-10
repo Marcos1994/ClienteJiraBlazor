@@ -1,0 +1,76 @@
+﻿@inject ServicoTarefa servicoTarefa
+
+<div class="accordion-item">
+	<h2 class="accordion-header" id="@("title_" + chaveTarefa)">
+		<button class="accordion-button @(visibilidade ? "" : "collapsed")" type="button" data-bs-toggle="collapse" @onclick="MudarVisibilidade">
+			@if (tarefa == null)
+			{
+				<p>@chaveTarefa</p>
+			}
+			else
+			{
+				<div class="container">
+					<div class="row">
+						<div class="col-2">
+							@chaveTarefa
+						</div>
+						<div class="col">
+							@tarefa.Nome
+						</div>
+						<div class="col-2">
+							ESTIMADO
+						</div>
+						<div class="col-2">
+							REALIZADO
+						</div>
+						<div class="col-2">
+							TOTAL
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-2">
+							@tarefa.Status.ToString()
+						</div>
+						<div class="col">
+							@((tarefa.Atribuido == null) ? "SEM ATRIBUIÇÃO" : tarefa.Atribuido.Nome)
+						</div>
+					</div>
+				</div>
+			}
+		</button>
+	</h2>
+	<div id="@("collapse_" + chaveTarefa)" class="accordion-collapse collapse @(visibilidade ? "show" : "")">
+		<div class="accordion-body">
+			@if (tarefa == null)
+			{
+				<p><em>Carregando...</em></p>
+			}
+			else
+			{
+				<p>@tarefa.Descricao</p>
+			}
+		</div>
+	</div>
+</div>
+
+@code {
+	[Parameter]
+	public string chaveTarefa { get; set; }
+
+	[Parameter]
+	public EventCallback<Tarefa> OnLoadCallback { get; set; }
+
+	protected Tarefa tarefa;
+	protected bool visibilidade = false;
+
+	void MudarVisibilidade()
+	{
+		visibilidade = !visibilidade;
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+		tarefa = await servicoTarefa.BuscarTarefa(chaveTarefa);
+		await OnLoadCallback.InvokeAsync(tarefa);
+	}
+}

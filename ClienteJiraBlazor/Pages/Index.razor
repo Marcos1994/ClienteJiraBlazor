@@ -1,7 +1,299 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+@using ClienteJiraAPI.Cliente
 
-Welcome to your new app.
+<h1>Informe o nome de usuário e token</h1>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<div class="input-group mb-2 mr-sm-2">
+				<div class="input-group-prepend">
+					<div class="input-group-text @((usuario == api.Usuario) ? "" : "bg-danger text-white")">Usuário</div>
+				</div>
+				<input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Usuário" @bind="usuario">
+			</div>
+		</div>
+		<div class="col">
+			<div class="input-group mb-2 mr-sm-2">
+				<div class="input-group-prepend">
+					<div class="input-group-text @((token == api.Token) ? "" : "bg-danger text-white")">Token</div>
+				</div>
+				<input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Token" @bind="token">
+			</div>
+		</div>
+		<div class="col-md-auto">
+			<button @onclick="SalvarToken" class="btn btn-primary">Salvar credenciais</button>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col">
+			<div class="input-group mb-2 mr-sm-2">
+				<div class="input-group-prepend">
+					<div class="input-group-text @((valorJr == fdb.ValorJr.ToString()) ? "" : "bg-danger text-white")">Valor Junior (R$)</div>
+				</div>
+				<input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Valor Junior (R$)" @bind="valorJr">
+			</div>
+		</div>
+		<div class="col">
+			<div class="input-group mb-2 mr-sm-2">
+				<div class="input-group-prepend">
+					<div class="input-group-text @((valorPl == fdb.ValorPl.ToString()) ? "" : "bg-danger text-white")">Valor Pleno (R$)</div>
+				</div>
+				<input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Valor Pleno (R$)" @bind="valorPl">
+			</div>
+		</div>
+		<div class="col">
+			<div class="input-group mb-2 mr-sm-2">
+				<div class="input-group-prepend">
+					<div class="input-group-text @((valorSr == fdb.ValorSr.ToString()) ? "" : "bg-danger text-white")">Valor Senior (R$)</div>
+				</div>
+				<input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Valor Senior (R$)" @bind="valorSr">
+			</div>
+		</div>
+		<div class="col-md-auto">
+			<button @onclick="SalvarValores" class="btn btn-primary">Salvar valores</button>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="accordion" id="accordionMembros">
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="ListaMembros">
+					<button class="accordion-button @(visibilidadeMembros ? "" : "collapsed")" type="button" data-bs-toggle="collapse" @onclick="MudarVisibilidadeMembros">
+						Lista de membros
+					</button>
+				</h2>
+				<div id="MembrosListados" class="accordion-collapse collapse @(visibilidadeMembros ? "show" : "")">
+					<div class="accordion-body">
+						<div class="row">
+							<button @onclick="SalvarMembros" class="btn btn-primary">Salvar Membros</button>
+						</div>
+						<div class="row">
+							<div class="col">
+								<h2>Membros Jr</h2>
+								@foreach (string m in fdb.MembrosJr)
+								{
+									<div class="input-group mb-2 mr-sm-2">
+										<input type="text" class="form-control" placeholder="@m" disabled="disabled">
+										<div class="input-group-prepend">
+											<button @onclick="@(() => RemoverMembro(m,"Jr"))" class="btn btn-danger">Remover</button>
+										</div>
+									</div>
+								}
+								<div class="input-group mb-2 mr-sm-2">
+									<input type="text" class="form-control" placeholder="Nome do usuário" @bind="novoJr">
+									<div class="input-group-prepend">
+										<button @onclick="@(() => AdicionarMembro("Jr"))" class="btn btn-primary">Add Membro</button>
+									</div>
+								</div>
+							</div>
+							<div class="col">
+								<h2>Membros Pl</h2>
+								@foreach (string m in fdb.MembrosPl)
+								{
+									<div class="input-group mb-2 mr-sm-2">
+										<input type="text" class="form-control" placeholder="@m" disabled="disabled">
+										<div class="input-group-prepend">
+											<button @onclick="@(() => RemoverMembro(m,"Pl"))" class="btn btn-danger">Remover</button>
+										</div>
+									</div>
+								}
+								<div class="input-group mb-2 mr-sm-2">
+									<input type="text" class="form-control" placeholder="Nome do usuário" @bind="novoPl">
+									<div class="input-group-prepend">
+										<button @onclick="@(() => AdicionarMembro("Pl"))" class="btn btn-primary">Add Membro</button>
+									</div>
+								</div>
+							</div>
+							<div class="col">
+								<h2>Membros Sr</h2>
+								@foreach (string m in fdb.MembrosSr)
+								{
+									<div class="input-group mb-2 mr-sm-2">
+										<input type="text" class="form-control" placeholder="@m" disabled="disabled">
+										<div class="input-group-prepend">
+											<button @onclick="@(() => RemoverMembro(m,"Sr"))" class="btn btn-danger">Remover</button>
+										</div>
+									</div>
+								}
+								<div class="input-group mb-2 mr-sm-2">
+									<input type="text" class="form-control" placeholder="Nome do usuário" @bind="novoSr">
+									<div class="input-group-prepend">
+										<button @onclick="@(() => AdicionarMembro("Sr"))" class="btn btn-primary">Add Membro</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="accordion" id="accordionEpicos">
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="ListaEpicos">
+					<button class="accordion-button @(visibilidadeEpicos ? "" : "collapsed")" type="button" data-bs-toggle="collapse" @onclick="MudarVisibilidadeEpicos">
+						Lista de Epicos
+					</button>
+				</h2>
+				<div id="EpicosListados" class="accordion-collapse collapse @(visibilidadeEpicos ? "show" : "")">
+					<div class="accordion-body">
+						<h2>Épicos em acompanhamento</h2>
+						@foreach (string chave in fdb.EpicosAtivos.Keys)
+						{
+							<div class="input-group mb-2 mr-sm-2">
+								<div class="input-group-prepend">
+									<a href="@(@"https://interfusao.atlassian.net/browse/"+chave)" target="_blank" class="btn btn-primary">@chave</a>
+								</div>
+								<input type="text" class="form-control" placeholder="@fdb.EpicosAtivos[chave]" disabled="disabled">
+								<div class="input-group-prepend">
+									<button @onclick="@(() => DesativarEpico(chave))" class="btn btn-danger">Remover</button>
+								</div>
+							</div>
+						}
+						<div class="input-group mb-2">
+							<div class="input-group-prepend">
+								<div class="input-group-text">NUMVALESA-</div>
+							</div>
+							<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="2779" @bind="novaChave">
+							<div class="input-group-prepend">
+								<div class="input-group-text">Descrição:</div>
+							</div>
+							<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Título ou descrição do épico" @bind="novaDescricao">
+							<button @onclick="@(() => AdicionarEpico("NUMVALESA-" + novaChave, novaDescricao))" class="btn btn-primary">Add Épico</button>
+						</div>
+						<button @onclick="SalvarEpicos" class="btn btn-primary">Salvar épicos</button>
+						<hr />
+						<h2>Épicos não acompanhados</h2>
+						@foreach (string chave in fdb.EpicosInativos.Keys)
+						{
+							<div class="input-group mb-2 mr-sm-2">
+								<div class="input-group-prepend">
+									<a href="@(@"https://interfusao.atlassian.net/browse/"+chave)" target="_blank" class="btn btn-primary">@chave</a>
+								</div>
+								<input type="text" class="form-control" placeholder="@fdb.EpicosInativos[chave]" disabled="disabled">
+								<div class="input-group-prepend">
+									<button @onclick="@(() => AdicionarEpico(chave, fdb.EpicosInativos[chave]))" class="btn btn-primary">Acompanhar</button>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@code
+{
+	Util.FileDatabase fdb;
+	ApiService api;
+
+	protected override void OnInitialized()
+	{
+		api = new ApiService();
+		usuario = api.Usuario;
+		token = api.Token;
+
+		fdb = new Util.FileDatabase();
+
+		valorJr = fdb.ValorJr.ToString();
+		valorPl = fdb.ValorPl.ToString();
+		valorSr = fdb.ValorSr.ToString();
+	}
+
+	string usuario, token;
+	private void SalvarToken()
+	{
+		api.SalvarTokens(usuario, token);
+	}
+
+
+
+	string valorSr, valorPl, valorJr;
+	private void SalvarValores()
+	{
+		decimal jr = 0;
+		decimal pl = 0;
+		decimal sr = 0;
+
+		try { jr = Convert.ToDecimal(valorJr); } catch (Exception) { jr = fdb.ValorJr; }
+		try { pl = Convert.ToDecimal(valorPl); } catch (Exception) { pl = fdb.ValorPl; }
+		try { sr = Convert.ToDecimal(valorSr); } catch (Exception) { sr = fdb.ValorSr; }
+
+		fdb.AtualizarValores(jr, pl, sr);
+	}
+
+
+
+	protected bool visibilidadeMembros = false;
+	string novoJr, novoPl, novoSr;
+
+	void MudarVisibilidadeMembros()
+	{
+		visibilidadeMembros = !visibilidadeMembros;
+	}
+
+	void AdicionarMembro(string cargo)
+	{
+		if (cargo != "Jr") novoJr = "";
+		if (cargo != "Pl") novoPl = "";
+		if (cargo != "Sr") novoSr = "";
+
+		string novo = novoJr + novoPl + novoSr;
+		novoJr = novoPl = novoSr = "";
+
+		if (!string.IsNullOrEmpty(novo))
+		{
+			if (fdb.MembrosJr.Contains(novo))
+				fdb.RemoverMembro(novo, "Jr");
+
+			if (fdb.MembrosPl.Contains(novo))
+				fdb.RemoverMembro(novo, "Pl");
+
+			if (fdb.MembrosSr.Contains(novo))
+				fdb.RemoverMembro(novo, "Sr");
+
+			fdb.AdicionarMembro(novo, cargo);
+		}
+	}
+
+	void RemoverMembro(string nome, string cargo)
+	{
+		fdb.RemoverMembro(nome, cargo);
+	}
+
+	void SalvarMembros()
+	{
+		fdb.SalvarMembros();
+	}
+
+
+
+	protected bool visibilidadeEpicos = false;
+	string novaChave, novaDescricao;
+
+	void MudarVisibilidadeEpicos()
+	{
+		visibilidadeEpicos = !visibilidadeEpicos;
+	}
+
+	void DesativarEpico(string chave)
+	{
+		fdb.DesativarEpico(chave);
+	}
+
+	void AdicionarEpico(string chave, string descricao)
+	{
+		fdb.AdicionarEpico(chave, descricao);
+	}
+
+	void SalvarEpicos()
+	{
+		fdb.SalvarEpicos();
+	}
+}

@@ -1,0 +1,306 @@
+﻿@inject ServicoEpico servicoEpico
+@using Negocio.Modelos.Entidades.Enum
+
+<div class="accordion-item">
+	<h2 class="accordion-header" id="@("title_" + chaveEpico)">
+		<button class="accordion-button @(visibilidade ? "" : "collapsed")" type="button" data-bs-toggle="collapse" @onclick="MudarVisibilidade">
+			@if (epico == null)
+			{
+				<p>@chaveEpico</p>
+			}
+			else
+			{
+				<div class="container">
+					<div class="row">
+						<div class="col-2">
+							<a class="btn btn-sm @estadoEpico" href="@(@"https://interfusao.atlassian.net/browse/"+chaveEpico)" target="_blank">@epico.Status.ToString()</a>
+						</div>
+						<div class="col">
+							@epico.Nome
+						</div>
+						<div class="col-4 border-start border-1">
+							@if (epico.OrcamentoTotal == 0)
+							{
+								<div class="row">
+									<div class="col text-danger">
+										SEM PROPOSTA
+									</div>
+								</div>
+							}
+							else
+							{
+								<div class="row">
+									<div class="col">
+										TOTAL
+									</div>
+									<div class="col">
+										ESTIMADO
+									</div>
+									<div class="col">
+										REALIZADO
+									</div>
+								</div>
+								<div class="row">
+									<div class="col">
+										@(epico.OrcamentoTotal.ToString("C2"))
+									</div>
+									<div class="col">
+										@(valorEstimado.ToString("C2"))
+									</div>
+									<div class="col">
+										@((valorRealizado).ToString("C2"))
+									</div>
+								</div>
+							}
+						</div>
+					</div>
+					<div class="row">
+						<div class="progress">
+							@if (progressoRealizado > 0)
+							{
+								<div class="progress-bar @(statusRealizado)" role="progressbar" style="width: @(progressoRealizado)%" aria-valuenow="@(progressoRealizado)" aria-valuemin="0" aria-valuemax="100"></div>
+							}
+							@if (progressoEstimado > 0)
+							{
+								<div class="progress-bar @(statusEstimado)" role="progressbar" style="width: @(progressoEstimado)%" aria-valuenow="@(progressoEstimado)" aria-valuemin="0" aria-valuemax="100"></div>
+							}
+						</div>
+					</div>
+					@if (andamento != null)
+					{
+						<div class="row border-top border-1">
+							<div class="col-3">
+								<div class="row @epicoAtualizado">
+									<div class="col"><b>Atualizado em</b> @andamento.DataCriacao</div>
+								</div>
+								<div class="row">
+									<div class="col"><b>Por</b> @andamento.Autor.Nome</div>
+								</div>
+							</div>
+							<div class="col border-start border-1">
+								@andamento.Conteudo.Replace("[SITUAÇÃO ATUAL]", "").Trim()
+							</div>
+						</div>
+					}
+				</div>
+			}
+		</button>
+	</h2>
+	<div id="@("collapse_" + chaveEpico)" class="accordion-collapse collapse @(visibilidade ? "show" : "")">
+		<div class="accordion-body">
+			@if (epico == null)
+			{
+				<p><em>Carregando...</em></p>
+			}
+			else
+			{
+		<ul>
+			<li>Solicitado por: @epico.Solicitante</li>
+			<li>@epico.Pep</li>
+			<li>Orçamento aprovado: R$@epico.OrcamentoTotal</li>
+			<li>R$@((valorEstimado).ToString()) (Estimado)</li>
+			<li>R$@((valorRealizado).ToString()) (Realizado)</li>
+			<li>Horas Jr: @horasDoneJr</li>
+			<li>Horas Pl: @horasDonePl</li>
+			<li>Horas Sr: @horasDoneSr</li>
+		</ul>
+				<div class="accordion" id="accordionEpico">
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="@("title_tarefas_" + chaveEpico)">
+							<button class="accordion-button @(visibilidadeTarefas ? "" : "collapsed")" type="button" data-bs-toggle="collapse" @onclick="MudarVisibilidadeTarefas">
+								<p>Tarefas: @epico.Tarefas.Count</p>
+							</button>
+						</h2>
+						<div id="@("collapse_tarefas_" + chaveEpico)" class="accordion-collapse collapse @(visibilidadeTarefas ? "show" : "")">
+							<div class="accordion-body">
+								<div class="accordion" id="accordionEpico">
+									@foreach (Tarefa tarefa in epico.Tarefas)
+									{
+										<AccordionTarefa chaveTarefa="@tarefa.Chave" OnLoadCallback="CarregarTarefa"></AccordionTarefa>
+									}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</div>
+
+
+
+
+@code {
+	[Parameter]
+	public string chaveEpico { get; set; }
+
+	[Parameter]
+	public Util.FileDatabase db { get; set; }
+
+	protected Epico epico;
+	protected string estadoEpico = "btn-secondary";
+	protected string epicoAtualizado = "text-danger";
+	protected Comentario andamento;
+	protected bool visibilidade = false;
+	protected bool visibilidadeTarefas = false;
+
+	protected decimal valorEstimado = 0;
+	protected decimal valorRealizado = 0;
+
+	protected decimal horasBacklogSr = 0;
+	protected decimal horasBacklogJr = 0;
+	protected decimal horasBacklogPl = 0;
+	protected decimal horasDoneSr = 0;
+	protected decimal horasDonePl = 0;
+	protected decimal horasDoneJr = 0;
+
+	protected int progressoEstimado = 0;
+	protected string statusEstimado = "bg-info";
+	protected int progressoRealizado = 0;
+	protected string statusRealizado = "bg-primary";
+
+	async Task MudarVisibilidade()
+	{
+		visibilidade = !visibilidade;
+		if (visibilidade && epico.Tarefas.Count == 0)
+		{
+			epico.Tarefas.AddRange(await servicoEpico.BuscarTarefas(chaveEpico));
+		}
+	}
+
+	void MudarVisibilidadeTarefas()
+	{
+		visibilidadeTarefas = !visibilidadeTarefas;
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+		epico = await servicoEpico.BuscarEpico(chaveEpico);
+
+		switch(epico.Status)
+		{
+			case EnumStatus.Concluido:
+			case EnumStatus.Cancelado:
+				estadoEpico = "btn-success";
+				break;
+			case EnumStatus.EmEspera:
+				estadoEpico = "btn-info";
+				break;
+			case EnumStatus.Impedido:
+				estadoEpico = "btn-warning";
+				break;
+			case EnumStatus.EmAndamento:
+				estadoEpico = "btn-primary";
+				break;
+		}
+
+		if (epico.Comentarios.Count > 0)
+		{
+			try
+			{
+				andamento = (from c in epico.Comentarios
+							 where c.Conteudo.Contains("[SITUAÇÃO ATUAL]")
+							 orderby c.DataCriacao descending
+							 select c).First();
+				if ((DateTime.Now - andamento.DataCriacao).Value.Days <= 4)
+					epicoAtualizado = "text-success";
+				else if ((DateTime.Now - andamento.DataCriacao).Value.Days <= 15)
+					epicoAtualizado = "text-warning";
+			}
+			catch (Exception ex)
+			{
+				andamento = (from c in epico.Comentarios
+							 orderby c.DataCriacao descending
+							 select c).FirstOrDefault();
+			}
+		}
+
+		epico.Tarefas.Clear();
+	}
+
+	void CarregarTarefa(Tarefa tarefa)
+	{
+		if (tarefa.Status == Negocio.Modelos.Entidades.Enum.EnumStatus.Cancelado)
+		{
+			return;
+		}
+
+		string membro = (tarefa.Atribuido == null)
+		? "" : tarefa.Atribuido.Nome;
+
+		decimal horasDone = tarefa.Apontamentos.Sum(a => a.Tempo) / 3600;
+		decimal horasBacklog = tarefa.Estimativa / 3600;
+
+		if(tarefa.Status == Negocio.Modelos.Entidades.Enum.EnumStatus.Concluido
+			|| horasBacklog < horasDone)
+		{
+			horasBacklog = 0;
+		}
+		else
+		{
+			horasBacklog -= horasDone;
+		}
+
+		switch (Cargo(membro))
+		{
+			case 1:
+				horasDoneJr += horasDone;
+				horasBacklogJr += horasBacklog;
+				break;
+			case 2:
+				horasDonePl += horasDone;
+				horasBacklogPl += horasBacklog;
+				break;
+			case 3:
+				horasDoneSr += horasDone;
+				horasBacklogSr += horasBacklog;
+				break;
+		}
+
+		valorEstimado =
+			(horasBacklogJr + horasDoneJr) * db.ValorJr +
+			(horasBacklogPl + horasDonePl) * db.ValorPl +
+			(horasBacklogSr + horasDoneSr) * db.ValorSr;
+
+		valorRealizado =
+			horasDoneJr * db.ValorJr +
+			horasDonePl * db.ValorPl +
+			horasDoneSr * db.ValorSr;
+
+		AtualizarProgresso();
+	}
+
+	int Cargo(string membro)
+	{
+		if (db.MembrosSr.Contains(membro))
+			return 3;
+
+		if (db.MembrosPl.Contains(membro))
+			return 2;
+
+		return 1;
+	}
+
+	void AtualizarProgresso()
+	{
+		if (epico.OrcamentoTotal == 0)
+			return;
+
+		progressoRealizado = Math.Clamp(
+			Convert.ToInt32((valorRealizado / epico.OrcamentoTotal) * 100),
+			0, 100);
+
+		progressoEstimado = Math.Clamp(
+			Convert.ToInt32(((valorEstimado - valorRealizado) / epico.OrcamentoTotal) * 100),
+			0, 100);
+
+		if (progressoEstimado + progressoRealizado > 100)
+			progressoEstimado = 100 - progressoRealizado;
+
+		if (valorRealizado > epico.OrcamentoTotal)
+			statusRealizado = "bg-danger";
+		else if (valorEstimado > epico.OrcamentoTotal)
+			statusEstimado = "bg-warning";
+	}
+}

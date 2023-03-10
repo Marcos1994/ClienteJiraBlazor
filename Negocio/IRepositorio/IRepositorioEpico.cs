@@ -9,5 +9,7 @@ namespace Negocio.IRepositorio
 	public interface IRepositorioEpico
 	{
 		public Task<Epico> BuscarEpico(string chave);
+
+		public Task<List<Tarefa>> BuscarTarefas(string chaveEpico);
 	}
 }

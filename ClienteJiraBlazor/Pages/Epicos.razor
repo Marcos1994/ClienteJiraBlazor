@@ -1,0 +1,31 @@
+﻿@page "/Epicos"
+
+@inject ServicoTarefa servicoTarefa
+
+<h1>Épicos ativos</h1>
+
+@if (chavesEpicos == null)
+{
+	<p><em>Carregando...</em></p>
+}
+else
+{
+	<div class="accordion" id="accordionEpico">
+		@foreach (string chave in chavesEpicos)
+		{
+			<AccordionEpico chaveEpico="@chave" db="@db"></AccordionEpico>
+		}
+	</div>
+}
+
+@code {
+	private List<string> chavesEpicos;
+	protected Util.FileDatabase db;
+
+	protected override async Task OnInitializedAsync()
+	{
+		db = new Util.FileDatabase();
+
+		chavesEpicos = db.EpicosAtivos.Keys.ToList();
+	}
+}

@@ -15,9 +15,12 @@ namespace Repositorio.Profiles
 				.ForMember(d => d.Chave, opt => opt.MapFrom(o => o.key))
 				.ForMember(d => d.Nome, opt => opt.MapFrom(o => o.fields.customfield_10601))
 				.ForMember(d => d.Status, opt => opt.MapFrom(o =>
-					(o.fields.status.name == "Backlog") ? EnumStatus.Backlog :
-					(o.fields.status.name == "Em andamento") ? EnumStatus.EmAndamento :
-					(o.fields.status.name == "Concluído") ? EnumStatus.Concluido : EnumStatus.Backlog))
+					(o.fields.status.name.ToLower() == "backlog") ? EnumStatus.Backlog :
+					(o.fields.status.name.ToLower() == "em andamento" || o.fields.status.name.ToLower() == "in progress") ? EnumStatus.EmAndamento :
+					(o.fields.status.name.ToLower() == "em espera" || o.fields.status.name.ToLower() == "on hold") ? EnumStatus.EmEspera :
+					(o.fields.status.name.ToLower() == "impedido" || o.fields.status.name.ToLower() == "blocked") ? EnumStatus.Impedido
+					: EnumStatus.Concluido))
+
 				.ForMember(d => d.Reportado, opt => opt.MapFrom(o => o.fields.reporter))
 				.ForMember(d => d.Atribuido, opt => opt.MapFrom(o => o.fields.assignee))
 				.ForMember(d => d.DataInicio, opt =>

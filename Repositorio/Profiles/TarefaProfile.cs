@@ -16,9 +16,11 @@ namespace Repositorio.Profiles
 				.ForMember(d => d.Chave, opt => opt.MapFrom(o => o.key))
 				.ForMember(d => d.Nome, opt => opt.MapFrom(o => o.fields.summary))
 				.ForMember(d => d.Status, opt => opt.MapFrom(o =>
-					(o.fields.status.name == "Backlog") ? EnumStatus.Backlog :
-					(o.fields.status.name == "Em andamento") ? EnumStatus.EmAndamento :
-					(o.fields.status.name == "Concluído") ? EnumStatus.Concluido : EnumStatus.Backlog))
+					(o.fields.status.name.ToLower() == "backlog") ? EnumStatus.Backlog :
+					(o.fields.status.name.ToLower() == "em andamento" || o.fields.status.name.ToLower() == "in progress") ? EnumStatus.EmAndamento :
+					(o.fields.status.name.ToLower() == "em espera" || o.fields.status.name.ToLower() == "on hold") ? EnumStatus.EmEspera :
+					(o.fields.status.name.ToLower() == "impedido" || o.fields.status.name.ToLower() == "blocked") ? EnumStatus.Impedido
+					: EnumStatus.Concluido))
 
 				.ForMember(d => d.Reportado, opt => opt.MapFrom(o => o.fields.reporter))
 				.ForMember(d => d.Atribuido, opt => opt.MapFrom(o => o.fields.assignee))
@@ -43,8 +45,14 @@ namespace Repositorio.Profiles
 					opt.MapFrom(o => o.fields.parent);
 				})
 
-				.ForMember(d => d.Estimativa, opt => opt.MapFrom(o => o.fields.timeEstimate))
-				.ForMember(d => d.Storypoints, opt => opt.MapFrom(o => o.fields.customfield_10004))
+				.ForMember(d => d.Estimativa, opt => opt.MapFrom(
+					o => (o.fields.timeOriginalEstimate != null)
+						? o.fields.timeOriginalEstimate
+						: (o.fields.timeEstimate != null)
+							? o.fields.timeEstimate : 0))
+				.ForMember(d => d.Storypoints, opt => opt.MapFrom(
+					o => (o.fields.customfield_10004 == null)
+					? 0 : o.fields.customfield_10004))
 				.ForMember(d => d.Prioridade, opt => opt.MapFrom(o =>
 					(o.fields.priority == null) ? EnumPrioridade.Baixa :
 					(o.fields.priority.id == "3") ? EnumPrioridade.Alta : EnumPrioridade.Baixa))

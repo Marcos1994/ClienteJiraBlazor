@@ -9,6 +9,7 @@ namespace Negocio.Modelos.Entidades.Enum
 		Backlog = 10207,
 		EmAndamento = 3,
 		Concluido = 10505,
+		EmEspera,
 		Impedido,
 		Cancelado
 	}
