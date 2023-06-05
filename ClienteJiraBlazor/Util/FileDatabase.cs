@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Negocio.Modelos.Entidades;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace ClienteJiraBlazor.Util
 {
 	public class FileDatabase
     {
+        private Dictionary<string, string> LabelsPeps;
         private Dictionary<string, List<string>> Membros;
         private Dictionary<string, Dictionary<string, string>> Epicos;
         public decimal ValorJr { get; private set; }
@@ -16,12 +18,14 @@ namespace ClienteJiraBlazor.Util
 		public List<string> MembrosJr { get { return Membros["Jr"]; } }
 		public List<string> MembrosPl { get { return Membros["Pl"]; } }
 		public List<string> MembrosSr { get { return Membros["Sr"]; } }
-		public Dictionary<string,string> EpicosAtivos { get { return Epicos["S"]; } }
+        public Dictionary<string,string> EpicosAtivos { get { return Epicos["S"]; } }
 		public Dictionary<string,string> EpicosInativos { get { return Epicos["N"]; } }
+		public Dictionary<string,string> Labels { get { return LabelsPeps; } }
 
 		public FileDatabase()
 		{
-            if (!File.Exists("valores.txt"))
+			#region Definir valores
+			if (!File.Exists("valores.txt"))
                 AtualizarValores(
                     Convert.ToDecimal("268,43"),
                     Convert.ToDecimal("300,67"),
@@ -33,10 +37,10 @@ namespace ClienteJiraBlazor.Util
                 ValorPl = Convert.ToDecimal(reader.ReadLine());
                 ValorSr = Convert.ToDecimal(reader.ReadLine());
             }
+			#endregion
 
-
-
-            Membros = new Dictionary<string, List<string>>();
+			#region Definir Membros
+			Membros = new Dictionary<string, List<string>>();
             Membros.Add("Jr", new List<string>());
             Membros.Add("Pl", new List<string>());
             Membros.Add("Sr", new List<string>());
@@ -63,10 +67,10 @@ namespace ClienteJiraBlazor.Util
                     Membros[cargo].Sort();
                 }
             }
+			#endregion
 
-
-
-            Epicos = new Dictionary<string, Dictionary<string, string>>();
+			#region Definir Épicos
+			Epicos = new Dictionary<string, Dictionary<string, string>>();
             Epicos.Add("N", new Dictionary<string, string>());
             Epicos.Add("S", new Dictionary<string, string>());
             if (File.Exists("epicos.txt"))
@@ -82,9 +86,28 @@ namespace ClienteJiraBlazor.Util
                     }
                 }
             }
-        }
+            #endregion
 
-        public void AtualizarValores(decimal valorJr, decimal valorPl, decimal valorSr)
+            #region Definir Labels
+            LabelsPeps = new Dictionary<string, string>();
+
+            if (File.Exists("labels.txt"))
+            {
+                using (StreamReader reader = new StreamReader("labels.txt"))
+                {
+                    string linha;
+                    string[] valores;
+                    while ((linha = reader.ReadLine()) != null)
+                    {
+                        valores = linha.Split(';');
+                        LabelsPeps.Add(valores[0], valores[1]);
+                    }
+                }
+            }
+			#endregion
+		}
+
+		public void AtualizarValores(decimal valorJr, decimal valorPl, decimal valorSr)
 		{
 			ValorJr = valorJr;
 			ValorPl = valorPl;
@@ -154,5 +177,32 @@ namespace ClienteJiraBlazor.Util
                 }
             }
         }
+
+        public void AdicionarLabel(string label, string pep)
+		{
+            if (LabelsPeps.Keys.Contains(label))
+                LabelsPeps[label] = pep;
+            else
+                LabelsPeps.Add(label,pep);
+        }
+        
+        public string PepPorLabel(string label)
+        {
+            if (LabelsPeps.Keys.Contains(label))
+                return LabelsPeps[label];
+            return "";
+        }
+
+        public void SalvarLabels()
+        {
+            using (var writer = new StreamWriter("labels.txt"))
+            {
+                foreach (string label in LabelsPeps.Keys)
+                {
+                    writer.WriteLine($"{label};{LabelsPeps[label]}");
+                }
+            }
+        }
+
     }
 }

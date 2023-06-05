@@ -16,7 +16,7 @@
 							<a class="btn btn-sm @estadoEpico" href="@(@"https://interfusao.atlassian.net/browse/"+chaveEpico)" target="_blank">@epico.Status.ToString()</a>
 						</div>
 						<div class="col">
-							@epico.Nome
+							<p class="@((epico.Rotulos.Count > 0 && db.PepPorLabel(epico.Rotulos.First()) == epico.Pep) ? "" : "text-danger")">@epico.Nome</p>
 						</div>
 						<div class="col-4 border-start border-1">
 							@if (epico.OrcamentoTotal == 0)
@@ -31,7 +31,7 @@
 							{
 								<div class="row">
 									<div class="col">
-										TOTAL
+										PROPOSTA
 									</div>
 									<div class="col">
 										ESTIMADO
@@ -96,7 +96,14 @@
 			{
 		<ul>
 			<li>Solicitado por: @epico.Solicitante</li>
-			<li>@epico.Pep</li>
+			@if (epico.Rotulos.Count > 0)
+			{
+				<li class="@((db.PepPorLabel(epico.Rotulos.First()) == epico.Pep) ? "" : "text-danger")">@(epico.Rotulos.First()): @epico.Pep</li>
+			}
+			else
+			{
+				<li class="text-danger">@epico.Pep</li>
+			}
 			<li>Orçamento aprovado: R$@epico.OrcamentoTotal</li>
 			<li>R$@((valorEstimado).ToString()) (Estimado)</li>
 			<li>R$@((valorRealizado).ToString()) (Realizado)</li>
@@ -229,6 +236,16 @@
 		string membro = (tarefa.Atribuido == null)
 		? "" : tarefa.Atribuido.Nome;
 
+		DateTime? maxData = null;
+		try
+		{
+			maxData = tarefa.Apontamentos.OrderByDescending(a => a.Data).First().Data;
+		}
+		catch (Exception ex)
+		{
+
+		}
+		DateTime dataUltimoApontamento = (maxData == null) ? DateTime.Now : (DateTime) maxData;
 		decimal horasDone = tarefa.Apontamentos.Sum(a => a.Tempo) / 3600;
 		decimal horasBacklog = tarefa.Estimativa / 3600;
 
@@ -242,7 +259,7 @@
 			horasBacklog -= horasDone;
 		}
 
-		switch (Cargo(membro))
+		switch (Cargo(membro, dataUltimoApontamento))
 		{
 			case 1:
 				horasDoneJr += horasDone;
@@ -271,7 +288,7 @@
 		AtualizarProgresso();
 	}
 
-	int Cargo(string membro)
+	int Cargo(string membro, DateTime dataApontamento)
 	{
 		if (db.MembrosSr.Contains(membro))
 			return 3;

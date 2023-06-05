@@ -2,8 +2,6 @@
 
 @using ClienteJiraAPI.Cliente
 
-<h1>Informe o nome de usuário e token</h1>
-
 <div class="container">
 	<div class="row">
 		<div class="col">
@@ -186,6 +184,45 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="row">
+		<div class="accordion">
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button @(visibilidadeLabels ? "" : "collapsed")" type="button" data-bs-toggle="collapse" @onclick="MudarVisibilidadeLabels">
+						Lista de Labels
+					</button>
+				</h2>
+				<div id="EpicosListados" class="accordion-collapse collapse @(visibilidadeLabels ? "show" : "")">
+					<div class="accordion-body">
+						<h2>Relação de labels com Peps</h2>
+						@foreach (string label in fdb.Labels.Keys)
+						{
+
+							<div class="input-group mb-2 mr-sm-2">
+								<div class="input-group-prepend">
+									<a href="#" class="btn btn-primary">@label</a>
+								</div>
+								<input type="text" class="form-control" placeholder="@fdb.Labels[label]" disabled="disabled">
+							</div>
+						}
+						<div class="input-group mb-2">
+							<div class="input-group-prepend">
+								<div class="input-group-text">Label:</div>
+							</div>
+							<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="PAINEL_SINOT" @bind="novaLabel">
+							<div class="input-group-prepend">
+								<div class="input-group-text">PEP:</div>
+							</div>
+							<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="00000000" @bind="novoPep">
+							<button @onclick="@(() => AdicionarLabel(novaLabel, novoPep))" class="btn btn-primary">Add Label</button>
+						</div>
+						<button @onclick="SalvarLabels" class="btn btn-primary">Salvar labels</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 @code
@@ -295,5 +332,26 @@
 	void SalvarEpicos()
 	{
 		fdb.SalvarEpicos();
+	}
+
+
+
+	protected bool visibilidadeLabels = false;
+	string novaLabel, novoPep;
+
+	void MudarVisibilidadeLabels()
+	{
+		visibilidadeLabels = !visibilidadeLabels;
+	}
+
+	void AdicionarLabel(string label, string pep)
+	{
+		fdb.AdicionarLabel(label, pep);
+		label = pep = "";
+	}
+
+	void SalvarLabels()
+	{
+		fdb.SalvarLabels();
 	}
 }
